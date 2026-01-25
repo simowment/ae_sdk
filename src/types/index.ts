@@ -8,7 +8,7 @@ export type Result<T> = Promise<SuccessResult<T> | ErrorResult>;
  * Represents a successful operation result
  * @template T The type of data returned
  */
-type SuccessResult<T> = {
+export type SuccessResult<T> = {
   /** Indicates the operation was successful */
   ok: true;
   /** The successful operation's returned data */
@@ -18,7 +18,7 @@ type SuccessResult<T> = {
 /**
  * Represents a failed operation result
  */
-type ErrorResult = {
+export type ErrorResult = {
   /** Indicates the operation failed */
   ok: false;
   /** Human-readable error message */

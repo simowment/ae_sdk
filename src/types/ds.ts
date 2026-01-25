@@ -188,8 +188,8 @@ export interface DS_Product_Attributes {
 }
 
 export interface DS_Product {
-  ae_item_sku_info_dtos: DS_Product_SKU_Variation[];
-  ae_item_properties: DS_Product_Attributes[];
+  ae_item_sku_info_dtos: DS_Product_SKU_Variation[] | { ae_item_sku_info_d_t_o: DS_Product_SKU_Variation[] };
+  ae_item_properties: DS_Product_Attributes[] | { ae_item_property: DS_Product_Attributes[] };
   ae_item_base_info_dto: DS_Product_Base_Info;
   ae_multimedia_info_dto: DS_Product_Multimedia;
   package_info_dto: DS_Product_Package_Info;

@@ -2,6 +2,7 @@ export * from "./utils/affiliate_client";
 export * from "./utils/ds_client";
 export type {
   Result,
+  ErrorResult,
   AE_Currency,
   AE_Language,
   AE_Logistics_Status,
