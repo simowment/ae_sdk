@@ -111,7 +111,7 @@ export type SYSTEM_API_NAMES =
  */
 export interface PublicParams {
   app_key: string;
-  session: string;
+  session?: string;
   timestamp: number;
   sign_method: "hmac" | "md5" | "sha256";
   method: AE_API_NAMES;
@@ -134,7 +134,7 @@ export interface AE_Base_Client {
    * @param {String} session Indicates the authorization granted by the TOP to an application after a user logs in and grants authorization successfully.
    * @link https://open.aliexpress.com/doc/doc.htm?nodeId=27493&docId=118729#/?docId=730
    */
-  session: string;
+  session?: string;
 }
 
 export type AliexpressMethod<T extends AE_API_NAMES> =

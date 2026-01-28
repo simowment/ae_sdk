@@ -45,7 +45,7 @@ import { tryFn } from ".";
 export class AEBaseClient implements AE_Base_Client {
   readonly app_key: string;
   readonly app_secret: string;
-  readonly session: string;
+  readonly session?: string;
 
   protected readonly format = RESPONSE_FORMAT;
   protected readonly migrated_apis_url = AE_TOP_API_URL;
@@ -84,12 +84,18 @@ export class AEBaseClient implements AE_Base_Client {
       .sort(([a], [b]) => a.localeCompare(b))
       .reduce((acc, [key, value]) => acc + key + String(value), "");
 
-    return createHmac(SIGN_METHOD, this.app_secret, {
+    console.log('[AliExpress SDK] Signature base string:', basestring);
+    console.log('[AliExpress SDK] Signing with secret:', this.app_secret.substring(0, 5) + '...');
+
+    const signature = createHmac(SIGN_METHOD, this.app_secret, {
       encoding: SIGN_METHOD_ENCODING,
     })
       .update(basestring)
       .digest("hex")
       .toUpperCase();
+
+    console.log('[AliExpress SDK] Generated signature:', signature);
+    return signature;
   }
 
   /**
@@ -212,13 +218,16 @@ export class AEBaseClient implements AE_Base_Client {
     const parameters: AliexpressMethod<K>["params"] & PublicParams = {
       ...params,
       method,
-      session: this.session,
       app_key: this.app_key,
+      session: this.session,
       simplify: true,
       sign_method: this.sign_method,
       timestamp: Date.now(),
-    };
+    }
+    
+    console.log('[AliExpress SDK] Request parameters before signing:', JSON.stringify(parameters, null, 2));
     parameters.sign = this.sign(parameters);
+    console.log('[AliExpress SDK] Final signed parameters:', JSON.stringify({ ...parameters, sign: parameters.sign }, null, 2));
 
     return await this.call<
       AliexpressMethod<K>["params"] & PublicParams,
@@ -261,12 +270,17 @@ export class AEBaseClient implements AE_Base_Client {
     const parameters = {
       ...params,
       method,
-      session: this.session,
       app_key: this.app_key,
       simplify: true,
       sign_method: this.sign_method,
       timestamp: Date.now(),
     } as TData & PublicParams;
+    
+    // Only add session if it exists
+    if (this.session) {
+      parameters.session = this.session;
+    }
+    
     parameters.sign = this.sign(parameters);
 
     return await this.call<TData & PublicParams, TResponse>(parameters);
