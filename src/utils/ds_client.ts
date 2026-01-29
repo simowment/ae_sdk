@@ -217,17 +217,20 @@ export class DropshipperClient extends AESystemClient {
   async createOrder({
     logistics_address,
     product_items,
+    out_order_id,
     promo_and_payment,
   }: {
     logistics_address: AE_Logistics_Address;
     product_items: AE_Product_Item[];
+    out_order_id?: string;
     promo_and_payment?: AE_Place_Order_Payment_Params;
   }) {
     let response = await this.execute("aliexpress.ds.order.create", {
-      ds_extend_request: JSON.stringify(promo_and_payment),
+      ...(promo_and_payment && { ds_extend_request: JSON.stringify(promo_and_payment) }),
       param_place_order_request4_open_api_d_t_o: JSON.stringify({
         logistics_address,
         product_items,
+        ...(out_order_id && { out_order_id }),
       }),
     });
 

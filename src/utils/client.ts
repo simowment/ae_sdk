@@ -45,7 +45,7 @@ import { tryFn } from ".";
 export class AEBaseClient implements AE_Base_Client {
   readonly app_key: string;
   readonly app_secret: string;
-  readonly session?: string;
+  readonly session: string | undefined;
 
   protected readonly format = RESPONSE_FORMAT;
   protected readonly migrated_apis_url = AE_TOP_API_URL;
@@ -80,7 +80,7 @@ export class AEBaseClient implements AE_Base_Client {
     }
 
     basestring += Object.entries(p)
-      .filter(([_, value]) => value != null)
+      .filter(([_, value]) => value != null && value !== "")
       .sort(([a], [b]) => a.localeCompare(b))
       .reduce((acc, [key, value]) => acc + key + String(value), "");
 
@@ -123,7 +123,7 @@ export class AEBaseClient implements AE_Base_Client {
     }
 
     const queryParams = Object.entries(p)
-      .filter(([_, value]) => value != null)
+      .filter(([_, value]) => value != null && value !== "")
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([key, value], index) => {
         const prefix = index === 0 ? "?" : "&";
@@ -215,14 +215,18 @@ export class AEBaseClient implements AE_Base_Client {
     method: K,
     params: AliexpressMethod<K>["params"],
   ): Result<AliexpressMethod<K>["result"]> {
-    const parameters: AliexpressMethod<K>["params"] & PublicParams = {
+    const parameters = {
       ...params,
       method,
       app_key: this.app_key,
-      session: this.session,
       simplify: true,
       sign_method: this.sign_method,
       timestamp: Date.now(),
+    } as AliexpressMethod<K>["params"] & PublicParams;
+    
+    // Only add session if it exists (exactOptionalPropertyTypes compatibility)
+    if (this.session) {
+      parameters.session = this.session;
     }
     
     console.log('[AliExpress SDK] Request parameters before signing:', JSON.stringify(parameters, null, 2));

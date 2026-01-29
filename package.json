@@ -1,5 +1,5 @@
 {
-  "name": "ae_sdk",
+  "name": "@medusastore/aliexpress-sdk",
   "version": "0.6.0",
   "description": "A simple SDK for Aliexpress (dropshipping and affiliate) APIs.",
   "private": false,
