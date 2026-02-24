@@ -1,13 +1,21 @@
-import requests
+import os
+import re
 import json
 import time
-import os
+import requests
 import sys
 import io
+from markdownify import markdownify as md
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
+# --- CONFIGURATION ---
 BASE_URL = "https://openservice.aliexpress.com"
+OUTPUT_DIR = "aliexpress_docs"
+
+# If you only want DropShipper docs, set TARGET_CATEGORY = "DropShipper"
+# To download EVERYTHING in the Open Platform, set TARGET_CATEGORY = None
+TARGET_CATEGORY = "DropShipper"
 
 SESSION_HEADERS = {
     "User-Agent": "Mozilla/5.0",
@@ -18,27 +26,23 @@ SESSION_HEADERS = {
 session = requests.Session()
 session.headers.update(SESSION_HEADERS)
 
-def get_term_categories(nodeId: int) -> dict:
-    # Let's try to get the actual tree that shows all articles under nodeId=27493
-    # Wait, earlier getDocTree failed with 404. Let's look at getDocTree url again.
-    url = f"{BASE_URL}/handler/share/doc/getTermCategories.json"
-    params = {"nodeId": nodeId, "lang": "en_US"}
+def sanitize_filename(name):
+    # Remove characters that are invalid in Windows/Linux filenames
+    s = re.sub(r'[\/*?:"<>|]', "", name)
+    # Remove newlines and trim
+    return s.replace('\n', ' ').strip()
+
+def get_doc_tree(typeId: int = 9) -> dict:
+    url = f"{BASE_URL}/handler/share/doc/getCategories.json"
+    params = {"typeId": typeId, "lang": "en_US"}
     r = session.get(url, params=params)
     r.raise_for_status()
     data = r.json()
     return data.get("data", {})
 
-def get_categories(nodeId: int) -> list:
-    url = f"{BASE_URL}/handler/share/doc/getCategories.json"
-    params = {"nodeId": nodeId, "lang": "en_US"}
-    r = session.get(url, params=params)
-    r.raise_for_status()
-    data = r.json()
-    return data.get("data", [])
-
-def get_doc_detail(docId: int, nodeId: int) -> dict:
+def get_doc_detail(docId: int) -> dict:
     url = f"{BASE_URL}/handler/share/doc/getDocDetail.json"
-    params = {"docId": docId, "nodeId": nodeId, "lang": "en_US"}
+    params = {"docId": docId, "lang": "en_US"}
     r = session.get(url, params=params)
     r.raise_for_status()
     data = r.json()
@@ -46,49 +50,93 @@ def get_doc_detail(docId: int, nodeId: int) -> dict:
         return None
     return data.get("data", {})
 
-def dump_docs(nodeId: int, name: str):
-    print(f"[+] Fetching term categories for nodeId={nodeId}")
+def dump_docs_as_markdown(typeId: int):
+    print(f"[+] Fetching full document tree for typeId={typeId}")
     try:
-        categories = get_term_categories(nodeId)
+        tree = get_doc_tree(typeId)
     except Exception as e:
-        print(f"  [!] Failed to get categories: {e}")
+        print(f"  [!] Failed to get tree: {e}")
         return
 
-    doc_ids = []
+    docs_to_fetch = []
     
-    def traverse(node):
-        if not isinstance(node, dict):
-            return
+    # Recursively traverse the nested folder structure
+    def traverse(node, current_path):
+        category_title = node.get("enTitle") or node.get("cnTitle") or ""
+        path = current_path
+        if category_title:
+            path = current_path + [category_title]
             
-        # Check currentDocList
+        # Collect docs sitting inside this specific folder
         for doc in node.get("currentDocList", []):
             if "id" in doc:
-                doc_ids.append((doc["id"], doc.get("enTitle") or doc.get("cnTitle") or str(doc["id"])))
+                title = doc.get("enTitle") or doc.get("cnTitle") or str(doc["id"])
+                docs_to_fetch.append({
+                    "id": doc["id"],
+                    "title": title,
+                    "path": path
+                })
                 
-        # Traverse children
+        # Dig deeper into sub-folders
         for child in node.get("children", []):
-            traverse(child)
+            traverse(child, path)
             
-    traverse(categories)
+    traverse(tree, [])
     
-    print(f"[*] Found {len(doc_ids)} documents to fetch.")
+    print(f"[*] Found {len(docs_to_fetch)} total documents in the tree.")
     
-    results = []
-    for i, (docId, title) in enumerate(doc_ids, 1):
-        print(f"  [{i}/{len(doc_ids)}] Fetching docId={docId} ({title})")
+    # Filter by TARGET_CATEGORY if specified
+    filtered_docs = []
+    for item in docs_to_fetch:
+        path_str = " > ".join(item["path"])
+        if TARGET_CATEGORY:
+            if TARGET_CATEGORY.lower() in path_str.lower() or TARGET_CATEGORY.lower() in item["title"].lower():
+                filtered_docs.append(item)
+        else:
+            filtered_docs.append(item)
+            
+    if TARGET_CATEGORY:
+        print(f"[*] Filtered down to {len(filtered_docs)} documents matching '{TARGET_CATEGORY}'.")
+
+    # Fetch and write files
+    for i, item in enumerate(filtered_docs, 1):
+        docId = item["id"]
+        title = item["title"]
+        safe_title = sanitize_filename(title)
+        
+        # Build a safe directory path
+        clean_path = [sanitize_filename(p) for p in item["path"]]
+        
+        # Remove top level generics ("Open Platform", "Overseas Developers") to reduce deep nesting
+        if len(clean_path) >= 2 and clean_path[0] == "Open Platform":
+            clean_path = clean_path[2:]
+            
+        dir_path = os.path.join(OUTPUT_DIR, *clean_path)
+        os.makedirs(dir_path, exist_ok=True)
+        
+        file_path = os.path.join(dir_path, f"{safe_title}.md")
+        
+        print(f"  [{i}/{len(filtered_docs)}] Writing: {file_path}")
+        
         try:
-            detail = get_doc_detail(docId, nodeId)
+            detail = get_doc_detail(docId)
             if detail:
-                results.append(detail)
-            time.sleep(0.1)
+                html_content = detail.get("enContent") or detail.get("cnContent") or ""
+                
+                # Convert HTML to Markdown
+                markdown_text = md(html_content, heading_style="ATX").strip()
+                
+                # Assemble final document
+                final_content = f"# {title}\n\n{markdown_text}\n"
+                
+                with open(file_path, "w", encoding="utf-8") as f:
+                    f.write(final_content)
+                    
+            time.sleep(0.1) # polite delay to avoid rate limits
         except Exception as e:
-            print(f"  [!] Failed: {e}")
+            print(f"  [!] Failed fetching docId {docId}: {e}")
 
-    with open(f"{name}.json", "w", encoding="utf-8") as f:
-        json.dump(results, f, indent=2, ensure_ascii=False)
-
-    print(f"[✓] Saved {name}.json ({len(results)} docs)")
+    print(f"\n[✓] Done! Files saved in ./{OUTPUT_DIR}/")
 
 if __name__ == "__main__":
-    dump_docs(27493, "aliexpress_docs_27493")
-
+    dump_docs_as_markdown(9)
