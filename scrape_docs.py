@@ -50,6 +50,34 @@ def get_doc_detail(docId: int) -> dict:
         return None
     return data.get("data", {})
 
+
+def format_json_block(match):
+    lang = match.group(1).strip()
+    code = match.group(2)
+    code_clean = code.replace(r'\_', '_').strip()
+    
+    if "<?php" in code_clean or "IopClient" in code_clean:
+        lang = "php" if "<?php" in code_clean else "java"
+        return f"```{lang}
+{code_clean}
+```"
+        
+    if code_clean.startswith('{') and code_clean.endswith('}'):
+        try:
+            parsed = json.loads(code_clean)
+            formatted = json.dumps(parsed, indent=2, ensure_ascii=False)
+            return f"```json
+{formatted}
+```"
+        except json.JSONDecodeError:
+            return f"```json
+{code_clean}
+```"
+            
+    return f"```{lang}
+{code}
+```"
+
 def dump_docs_as_markdown(typeId: int):
     print(f"[+] Fetching full document tree for typeId={typeId}")
     try:
@@ -126,7 +154,13 @@ def dump_docs_as_markdown(typeId: int):
                 # Convert HTML to Markdown
                 markdown_text = md(html_content, heading_style="ATX").strip()
                 
+                # Format JSON code blocks
+                pattern = re.compile(r'```(.*?)?
+(.*?)```', re.DOTALL)
+                markdown_text = pattern.sub(format_json_block, markdown_text)
+                
                 # Assemble final document
+
                 final_content = f"# {title}\n\n{markdown_text}\n"
                 
                 with open(file_path, "w", encoding="utf-8") as f:
