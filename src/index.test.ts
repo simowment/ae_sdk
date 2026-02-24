@@ -1,34 +1,34 @@
 import { describe, expect, it } from "vitest";
-import { ds_client, affiliate_client } from "./playground";
+import { DropshipperClient } from "./utils/ds_client";
+import { AffiliateClient } from "./utils/affiliate_client";
+import { AESystemClient } from "./utils/system_client";
 
-describe("Initialize a client", () => {
-  it("Should initialize a dropshipper client", () => {
-    expect(ds_client).toHaveProperty("createOrder");
+describe("Initialize SDK Clients", () => {
+  it("Should initialize a dropshipper client with session", () => {
+    const client = new DropshipperClient({
+      app_key: "test_key",
+      app_secret: "test_secret",
+      session: "test_session",
+    });
+    expect(client).toHaveProperty("createOrder");
+    expect(client.session).toBe("test_session");
   });
 
-  it("Should initialize an affiliate client", () => {
-    expect(affiliate_client).toHaveProperty("queryProducts");
+  it("Should initialize an affiliate client without session", () => {
+    const client = new AffiliateClient({
+      app_key: "test_key",
+      app_secret: "test_secret",
+    });
+    expect(client).toHaveProperty("queryProducts");
+    expect(client.session).toBeUndefined();
+  });
+
+  it("Should initialize a system client for OAuth", () => {
+    const client = new AESystemClient({
+      app_key: "test_key",
+      app_secret: "test_secret",
+    });
+    expect(client).toHaveProperty("generateToken");
+    expect(client.session).toBeUndefined();
   });
 });
-
-// describe("Type safety from API response", () => {
-//   it("Should have a Result type from the dropshipper client", async () => {
-//     // @ts-ignore - Should throw type error for invalid parameters
-//     assertType<Result<DS_Place_Order_Result>>(
-//       // @ts-expect-error
-//       ds_client.createOrder({ logistics_address: {}, product_items: {} }),
-//     );
-//   });
-
-//   it("Should have a Result type from the affiliate client", async () => {
-//     // @ts-ignore - Should throw type error for invalid parameters
-//     assertType<Result<Affiliate_Product_Details_Result>>(
-//       affiliate_client.productDetails({ product_ids: "123" }),
-//     );
-//   });
-
-//   it("Should throw error for an undefined return", async () => {
-//     // @ts-ignore - Should throw type error for invalid parameters
-//     expectTypeOf(ds_client.getCategories({})).not.toBeUndefined();
-//   });
-// });

@@ -79,7 +79,9 @@ Before using this SDK, you'll need to complete several steps on the AliExpress O
 
 #### 1. Initialize a Client
 
-Choose the appropriate client based on your needs (System, Dropshipper, or Affiliate):
+Choose the appropriate client based on your needs (System, Dropshipper, or Affiliate). The `session` parameter (access token) is optional for authentication flows but required for user-specific actions.
+
+> **Note:** For a complete guide on handling the AliExpress OAuth flow to obtain session tokens, check out our [OAuth Guide](./docs/OAUTH_GUIDE_TYPESCRIPT.md).
 
 ```typescript
 import { DropshipperClient } from "ae_sdk";
@@ -87,7 +89,7 @@ import { DropshipperClient } from "ae_sdk";
 const client = new DropshipperClient({
   app_key: "YOUR_APP_KEY",
   app_secret: "YOUR_APP_SECRET",
-  session: "ACCESS_TOKEN_FROM_AUTH_FLOW",
+  session: "ACCESS_TOKEN_FROM_AUTH_FLOW", // Optional for initial OAuth setup
 });
 ```
 
@@ -237,6 +239,7 @@ const orderResponse = await dropshipperClient.createOrder({
     province: "California",
     zip: "90001",
   },
+  out_order_id: "YOUR_CUSTOM_ORDER_ID_123", // Optional: Custom order ID for idempotency
   product_items: [
     {
       logistics_service_name: "AliExpress Standard Shipping",
@@ -253,17 +256,24 @@ const orderResponse = await dropshipperClient.createOrder({
 
 ### Direct API Calls
 
-For APIs not yet included in the SDK:
+For APIs not yet included in the SDK, you can use the generic `callAPIDirectly` method which provides complete type safety for parameters and responses:
 
 ```typescript
-const response = await client.callAPIDirectly(
-  "aliexpress.custom.api.endpoint",
-  {
-    param1: "value1",
-    param2: "value2",
-    // Additional parameters as required by the API
-  },
-);
+interface CustomResponse {
+  result_data: string;
+}
+
+const response = await client.callAPIDirectly<
+  { param1: string; param2: string }, // Request Parameters type
+  CustomResponse                      // Expected Response type
+>("aliexpress.custom.api.endpoint", {
+  param1: "value1",
+  param2: "value2",
+});
+
+if (response.ok) {
+  console.log(response.data.result_data);
+}
 ```
 
 ## 🤝 Contributing
