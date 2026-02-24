@@ -90,7 +90,7 @@ export class AEBaseClient implements AE_Base_Client {
     const signature = createHmac(SIGN_METHOD, this.app_secret, {
       encoding: SIGN_METHOD_ENCODING,
     })
-      .update(basestring)
+      .update(encodeURIComponent(basestring))
       .digest("hex")
       .toUpperCase();
 
