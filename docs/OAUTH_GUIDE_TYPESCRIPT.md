@@ -23,7 +23,13 @@ pnpm add git+https://github.com/YourUsername/ae_sdk.git
 
 AliExpress requires users to explicitly grant your application permission to act on their behalf. You do this by redirecting them to AliExpress, having them log in, and then capturing the temporary authorization `code` they send back.
 
-### Step 1: Redirect the user to AliExpress
+### Step 1: Configure your App Console
+Before writing code, ensure your `Callback URL` is registered in the AliExpress App Console.
+1. Go to your App Console -> App Management -> App Overview
+2. Set your **Callback URL** (e.g., `https://yourdomain.com/auth/aliexpress/callback`)
+> *Note: If this address doesn't exactly match the `redirect_uri` in your code, the authorization will fail.*
+
+### Step 2: Redirect the user to AliExpress
 In your Node.js backend (e.g., Express.js), create a route that redirects the user's browser to the official AliExpress authorization URL.
 
 ```typescript
@@ -39,14 +45,14 @@ const CALLBACK_URL = "https://yourdomain.com/auth/aliexpress/callback";
 
 app.get('/auth/aliexpress', (req, res) => {
     // Construct the official OAuth URL
-    const authUrl = `https://api-sg.aliexpress.com/oauth/authorize?response_type=code&force_auth=true&redirect_uri=${CALLBACK_URL}&client_id=${APP_KEY}`;
+    const authUrl = `https://api-sg.aliexpress.com/oauth/authorize?response_type=code&force_auth=true&redirect_uri=${encodeURIComponent(CALLBACK_URL)}&client_id=${APP_KEY}`;
     
     // Redirect the user's browser to AliExpress
     res.redirect(authUrl);
 });
 ```
 
-### Step 2: Handle the Callback and Generate the Token
+### Step 3: Handle the Callback and Generate the Token
 AliExpress will redirect the user back to your `CALLBACK_URL` with a temporary `?code=XYZ` attached to the URL. Use the `AESystemClient` from the SDK to exchange this code for a permanent access token (`session` token).
 
 ```typescript
@@ -94,7 +100,7 @@ app.get('/auth/aliexpress/callback', async (req, res) => {
 });
 ```
 
-### Step 3: Use the Token to Make Authenticated Requests
+### Step 4: Use the Token to Make Authenticated Requests
 When you want to perform actions (like fetching dropshipping products or placing orders) on behalf of that user, you fetch their saved token and inject it into the `session` property of the `DropshipperClient` or `AffiliateClient`.
 
 ```typescript
