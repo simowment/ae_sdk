@@ -25,6 +25,8 @@ This SDK provides several key capabilities:
 - **Session Management** - Streamlined token generation and refresh flows
 - **Error Handling** - Consistent error responses with detailed messages
 
+- **Test Environment** - Guides on using AliExpress Loan Test Accounts for safe integration
+
 ### 💻 Developer Experience
 
 - **Type Safety** - Fully typed parameters and responses for all API methods
