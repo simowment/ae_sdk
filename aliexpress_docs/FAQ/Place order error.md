@@ -10,12 +10,13 @@
 
 `"error_code": "B_DROPSHIPPER_DELIVERY_ADDRESS_VALIDATE_FAIL"`
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```json
 "error\_msg": "Please select a State/Province/County",
 
 "error\_msg": "Please enter a City",
 
+```
 # Check steps
 
 1. Check that your `"country"` field is correct. It should be a two-letter country code. Please refer to: [Country Code Documentation](https://openservice.aliexpress.com/doc/doc.htm?spm=a2o9m.11193535.0.0.456459b2MAmd59&nodeId=27493&docId=118729#/?docId=1604)
@@ -43,8 +44,8 @@ Step3:Compare the correct address of the page automatically loaded
 
 Step4:Finish your address parameter
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```json
 "country": "US",
 
 "zip": "08360",
@@ -53,6 +54,7 @@ PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
 "city": "Vineland",
 
+```
 # Develop
 
 You can also use browser tools to capture elements on the page to ensure the accuracy of the province & city results you input. Please refer to the image below.

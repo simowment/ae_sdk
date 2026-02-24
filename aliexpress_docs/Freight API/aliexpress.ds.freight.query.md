@@ -54,105 +54,66 @@
 
 ## Successful response
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```json
 {
-
-"aliexpress\_ds\_freight\_query\_response": {
-
-"result": {
-
-"msg": "Call succeeds",
-
-"code": 200,
-
-"success": true,
-
-"delivery\_options": {
-
-"delivery\_option\_d\_t\_o": [
-
-{
-
-"code": "CAINIAO\_STANDARD",
-
-"shipping\_fee\_currency": "USD",
-
-"free\_shipping": false,
-
-"mayHavePFS": false,
-
-"guaranteed\_delivery\_days": "75",
-
-"max\_delivery\_days": 34,
-
-"tracking": true,
-
-"shipping\_fee\_format": "US $172.71",
-
-"delivery\_date\_desc": "Mar 08 - 25",
-
-"company": "AliExpress standard shipping",
-
-"ship\_from\_country": "CN",
-
-"min\_delivery\_days": 17,
-
-"available\_stock": "182",
-
-"ddpIncludeVATTax": "true",
-
-"shipping\_fee\_cent": "172.71"
-
+  "aliexpress_ds_freight_query_response": {
+    "result": {
+      "msg": "Call succeeds",
+      "code": 200,
+      "success": true,
+      "delivery_options": {
+        "delivery_option_d_t_o": [
+          {
+            "code": "CAINIAO_STANDARD",
+            "shipping_fee_currency": "USD",
+            "free_shipping": false,
+            "mayHavePFS": false,
+            "guaranteed_delivery_days": "75",
+            "max_delivery_days": 34,
+            "tracking": true,
+            "shipping_fee_format": "US $172.71",
+            "delivery_date_desc": "Mar 08 - 25",
+            "company": "AliExpress standard shipping",
+            "ship_from_country": "CN",
+            "min_delivery_days": 17,
+            "available_stock": "182",
+            "ddpIncludeVATTax": "true",
+            "shipping_fee_cent": "172.71"
+          }
+        ]
+      }
+    },
+    "request_id": "2140d58917400193503907772"
+  }
 }
-
-]
-
-}
-
-},
-
-"request\_id": "2140d58917400193503907772"
-
-}
-
-}
-
+```
 ## Faild response
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```json
 {
-
-"aliexpress\_ds\_freight\_query\_response": {
-
-"result": {
-
-"msg": "DELIVERY\_NOT\_AVAILABLE\_TO\_YOUR\_ADDRESS",
-
-"code": 505,
-
-"success": false
-
-},
-
-"request\_id": "2101243217409851599735016"
-
+  "aliexpress_ds_freight_query_response": {
+    "result": {
+      "msg": "DELIVERY_NOT_AVAILABLE_TO_YOUR_ADDRESS",
+      "code": 505,
+      "success": false
+    },
+    "request_id": "2101243217409851599735016"
+  }
 }
-
-}
-
+```
 # Demo code
 
 ## Java demo
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```java
 String url = "https://api-sg.aliexpress.com";
 
-String appkey = "your\_appkey";
+String appkey = "your_appkey";
 
-String appSecret = "your\_appSecret";
+String appSecret = "your_appSecret";
 
 IopClient client = new IopClient(url, appkey, appSecret);
 
@@ -160,16 +121,16 @@ IopRequest request = new IopRequest();
 
 request.setApiName("aliexpress.ds.freight.query");
 
-request.addApiParameter("queryDeliveryReq", "{\"quantity\":\"1\",\"shipToCountry\":\"US\",\"productId\":\"3256802900954148\",\"provinceCode\":\"California\",\"cityCode\":\"Mill Valley\",\"selectedSkuId\":\"12000023999200390\",\"language\":\"en\_US\",\"currency\":\"USD\",\"locale\":\"zh\_CN\"}");
+request.addApiParameter("queryDeliveryReq", "{\"quantity\":\"1\",\"shipToCountry\":\"US\",\"productId\":\"3256802900954148\",\"provinceCode\":\"California\",\"cityCode\":\"Mill Valley\",\"selectedSkuId\":\"12000023999200390\",\"language\":\"en_US\",\"currency\":\"USD\",\"locale\":\"zh_CN\"}");
 
 IopResponse response = client.execute(request, accessToken, Protocol.TOP);
 
 System.out.println(response.getBody());
-
+```
 ## PHP demo
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```php
 <?php
 
 $url = "https://api-sg.aliexpress.com/sync";
@@ -186,10 +147,10 @@ $c = new IopClient(url,appkey,appSecret);
 
 $request = new IopRequest('aliexpress.ds.freight.query');
 
-$request->addApiParam('queryDeliveryReq','{\"quantity\":\"1\",\"shipToCountry\":\"US\",\"productId\":\"3256802900954148\",\"provinceCode\":\"California\",\"cityCode\":\"Mill Valley\",\"selectedSkuId\":\"12000023999200390\",\"language\":\"en\_US\",\"currency\":\"USD\",\"locale\":\"zh\_CN\"}');
+$request->addApiParam('queryDeliveryReq','{\"quantity\":\"1\",\"shipToCountry\":\"US\",\"productId\":\"3256802900954148\",\"provinceCode\":\"California\",\"cityCode\":\"Mill Valley\",\"selectedSkuId\":\"12000023999200390\",\"language\":\"en_US\",\"currency\":\"USD\",\"locale\":\"zh_CN\"}');
 
-var\_dump($c->execute($request, $accessToken));
-
+var_dump($c->execute($request, $accessToken));
+```
 # ERROR CODE
 
 # Common errors

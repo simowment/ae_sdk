@@ -86,13 +86,14 @@ API document:
 
 Set ds\_extend\_request as:
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```json
 { "payment": { "pay\_currency": "USD", "try\_to\_pay": true } }
 
 1. if try\_to\_pay == false, we will not try to pay your orders.
 2. please leave pay\_currency as USD, in the future, we will try to support all currency that can be used in PayPal
 
+```
 # Error
 
 There are 2 steps in our API, step 1 to create order for you, step 2 pay those orders that newly created.
@@ -103,26 +104,19 @@ if order create successfully, but pay faild. You will get status: success, order
 
 Example of order created but payment fail:
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```json
 {
-
-"aliexpress\_ds \_order\_create \_response": {
-
-"result": {
-
-"error\_msg": "OrderCreated, autoPay fail:APIPayFail",
-
-"is\_ success": true,
-
-"order\_list": {
-
-"number": [8190439416163295]
-
+  "aliexpress_ds _order_create _response": {
+    "result": {
+      "error_msg": "OrderCreated, autoPay fail:APIPayFail",
+      "is_ success": true,
+      "order_list": {
+        "number": [
+          8190439416163295
+        ]
+      }
+    }
+  }
 }
-
-}
-
-}
-
-}
+```

@@ -34,71 +34,46 @@
 
 ## Successful response
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```json
 {
-
-"aliexpress\_ds\_feedname\_get\_response": {
-
-"resp\_result": {
-
-"result": {
-
-"current\_record\_count": 176,
-
-"promos": {
-
-"promo": [
-
-{
-
-"promo\_name": "AEB\_ ComputerAccessories\_EG",
-
-"promo\_desc": "AEB\_ ComputerAccessories\_EG",
-
-"product\_num": 35018
-
-},
-
-{
-
-"promo\_name": "toys\_ZA topsellers\_ 20240423",
-
-"promo\_desc": "toys\_ZA topsellers\_ 20240423",
-
-"product\_num": 50955
-
+  "aliexpress_ds_feedname_get_response": {
+    "resp_result": {
+      "result": {
+        "current_record_count": 176,
+        "promos": {
+          "promo": [
+            {
+              "promo_name": "AEB_ ComputerAccessories_EG",
+              "promo_desc": "AEB_ ComputerAccessories_EG",
+              "product_num": 35018
+            },
+            {
+              "promo_name": "toys_ZA topsellers_ 20240423",
+              "promo_desc": "toys_ZA topsellers_ 20240423",
+              "product_num": 50955
+            }
+          ]
+        }
+      },
+      "resp_code": 200,
+      "resp_msg": "Call succeeds"
+    },
+    "request_id": "2141154c17397829835025878"
+  }
 }
-
-]
-
-}
-
-},
-
-"resp\_code": 200,
-
-"resp\_msg": "Call succeeds"
-
-},
-
-"request\_id": "2141154c17397829835025878"
-
-}
-
-}
-
+```
 # Demo code
 
 ## Java demo
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```java
 String url = "https://api-sg.aliexpress.com";
 
-String appkey = "your\_appkey";
+String appkey = "your_appkey";
 
-String appSecret = "your\_appSecret";
+String appSecret = "your_appSecret";
 
 IopClient client = new IopClient(url, appkey, appSecret);
 
@@ -106,16 +81,16 @@ IopRequest request = new IopRequest();
 
 request.setApiName("aliexpress.ds.feedname.get");
 
-request.addApiParameter("app\_signature", "your\_feedname");
+request.addApiParameter("app_signature", "your_feedname");
 
 IopResponse response = client.execute(request, accessToken, Protocol.TOP);
 
 System.out.println(response.getBody());
-
+```
 ## PHP demo
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```php
 <?php
 
 $url = "https://api-sg.aliexpress.com/sync";
@@ -132,10 +107,10 @@ $c = new IopClient(url,appkey,appSecret);
 
 $request = new IopRequest('aliexpress.ds.feedname.get');
 
-$request->addApiParam('app\_signature','your\_feedname');
+$request->addApiParam('app_signature','your_feedname');
 
-var\_dump($c->execute($request, $accessToken));
-
+var_dump($c->execute($request, $accessToken));
+```
 # ERROR CODE
 
 # Common Issues
@@ -154,4 +129,8 @@ var\_dump($c->execute($request, $accessToken));
 
 # [ChangeLog](https://openservice.aliexpress.com/doc/doc.htm?spm=a2o9m.11193535.0.0.456459b2MAmd59&nodeId=27493&docId=118729#/?docId=1669)
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
+
+```json
+
+
+```

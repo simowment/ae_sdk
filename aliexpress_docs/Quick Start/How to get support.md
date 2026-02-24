@@ -39,16 +39,16 @@ You can submit a ticket to the Dropshipper technical team for technical inquirie
 
 If you have any needs or questions regarding DS business, please consult the following email address.
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```json
 ds-api@aliexpress.com
 
 **(****Register Account / Business Consulting / Business Requirements...****)**
 
 If you have any technical questions, please send an email to the following address:
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
-
+```
+```json
 ae\_ds\_supporter\_team@aliexpress.com
 
 **（Only tec issue）**
@@ -64,3 +64,5 @@ When you send an email, please fill out the form below and attach it and send it
 | RequestID for your request： |  |
 | API path: |  |
 | RequestBody: |  |
+
+```

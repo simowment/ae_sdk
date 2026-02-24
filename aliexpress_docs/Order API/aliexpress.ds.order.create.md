@@ -69,58 +69,37 @@
 
 ## Successful Response
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```json
 {
-
-"aliexpress\_ds\_order\_create\_response": {
-
-"result": {
-
-"is\_success": true,
-
-"order\_list": {
-
-"number": [
-
-8198352049851315
-
-]
-
+  "aliexpress_ds_order_create_response": {
+    "result": {
+      "is_success": true,
+      "order_list": {
+        "number": [
+          8198352049851315
+        ]
+      }
+    },
+    "request_id": "212a790f17395203524904964"
+  }
 }
-
-},
-
-"request\_id": "212a790f17395203524904964"
-
-}
-
-}
-
+```
 ## Failed Response
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```json
 {
-
-"aliexpress\_ds\_order\_create\_response": {
-
-"result": {
-
-"error\_msg": "Please enter a city",
-
-"error\_code": "B\_DROPSHIPPER\_DELIVERY\_ADDRESS\_VALIDATE\_FAIL",
-
-"is\_success": false
-
-},
-
-"request\_id": "2140eeb817405385212422871"
-
+  "aliexpress_ds_order_create_response": {
+    "result": {
+      "error_msg": "Please enter a city",
+      "error_code": "B_DROPSHIPPER_DELIVERY_ADDRESS_VALIDATE_FAIL",
+      "is_success": false
+    },
+    "request_id": "2140eeb817405385212422871"
+  }
 }
-
-}
-
+```
 # ERROR CODE
 
 |  |  |  |
@@ -153,66 +132,38 @@ PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
 **A:** You can refer the JSON.
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```json
 {
-
-"logistics\_address": {
-
-"address": "Enter\_your\_address",
-
-"city": "Vineland",
-
-"contact\_person": "Malik Jack",
-
-"country": "US",
-
-"mobile\_no": "23450000",
-
-"phone\_country": "+",
-
-"phone\_number": "5593600000",
-
-"province": "New Jersey",
-
-"zip": "08360"
-
-},
-
-"product\_items": [
-
-{
-
-"product\_id": 1005004638293060,
-
-"product\_count": 1,
-
-"sku\_attr": "14:365458#Brown",
-
-"logistics\_service\_name": "",
-
-"order\_memo": " "
-
-},
-
-{
-
-"product\_id": 1005004638293060,
-
-"product\_count": 1,
-
-"sku\_attr": "14:365458#Brown",
-
-"logistics\_service\_name": "",
-
-"order\_memo": " "
-
+  "logistics_address": {
+    "address": "Enter_your_address",
+    "city": "Vineland",
+    "contact_person": "Malik Jack",
+    "country": "US",
+    "mobile_no": "23450000",
+    "phone_country": "+",
+    "phone_number": "5593600000",
+    "province": "New Jersey",
+    "zip": "08360"
+  },
+  "product_items": [
+    {
+      "product_id": 1005004638293060,
+      "product_count": 1,
+      "sku_attr": "14:365458#Brown",
+      "logistics_service_name": "",
+      "order_memo": " "
+    },
+    {
+      "product_id": 1005004638293060,
+      "product_count": 1,
+      "sku_attr": "14:365458#Brown",
+      "logistics_service_name": "",
+      "order_memo": " "
+    }
+  ]
 }
-
-]
-
-}
-
+```
 ## Q: "B\_DROPSHIPPER\_DELIVERY\_ADDRESS\_VALIDATE\_FAIL"
 
 **A:**You can use the address filling form on the AliExpress order page to verify whether your address is correct. If you can confirm, it means your address is available and can be used as an input parameter. [Link](https://www.aliexpress.com/p/trade/confirm.html?objectId=1005006454451334&from=aliexpress&countryCode=US&shippingCompany=CAINIAO_STANDARD&provinceCode=922865760000000000&cityCode=922865765760000000&aeOrderFrom=main_detail&skuAttr=200000795%3A193%23no%20switch%3B249%3A200006305%234w%28max100w%29&skuId=12000037255569170&skucustomAttr=&quantity=1&spm=a2g0o.detail.0.0&curPageLogUid=1738898297502_0sA2qR&pdpBuyParams=%7B%22pdpBusinessMode%22%3A%22wholesale%22%7D&addressId=4100198298419&gatewayAdapt=4itemAdapt)
@@ -223,8 +174,8 @@ PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 4. Compare the correct address of the page automatically loaded![](https://intranetproxy.alipay.com/skylark/lark/0/2025/png/35656464/1738911224329-4339b396-63da-4745-88bb-f7645e0dd94e.png)
 5. Finish your parameter
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```json
 "country": "US",
 
 "zip": "08360",
@@ -239,34 +190,26 @@ You can also use browser tools to capture elements on the page to ensure the acc
 
 ![](https://intranetproxy.alipay.com/skylark/lark/0/2025/png/35656464/1739241129201-08d8d9db-500d-4526-9d4e-b467dc2a4b50.png)
 
+```
 ## Q: "DELIVERY\_METHOD\_NOT\_EXIST"
 
 **A:**Use [aliexpress.ds.freight.query](https://openservice.aliexpress.com/doc/doc.htm?spm=a2o9m.11193535.0.0.456459b2MAmd59&nodeId=27493&docId=118729#/?docId=1597) to check whether the logistics can be delivered.
 
 If the following error occurs, the product cannot be delivered.
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```json
 {
-
-"aliexpress\_ds\_freight\_query\_response": {
-
-"result": {
-
-"msg": "DELIVERY\_NOT\_AVAILABLE\_TO\_YOUR\_ADDRESS",
-
-"code": 505,
-
-"success": false
-
-},
-
-"request\_id": "21015f2417397598951022443"
-
+  "aliexpress_ds_freight_query_response": {
+    "result": {
+      "msg": "DELIVERY_NOT_AVAILABLE_TO_YOUR_ADDRESS",
+      "code": 505,
+      "success": false
+    },
+    "request_id": "21015f2417397598951022443"
+  }
 }
-
-}
-
+```
 ## Q: The created Order was cancelled. How can I know the reason for the failure?
 
 **A:**Due to relevant requirements, we cannot disclose the failure reason to you. You can use the webhook function to track the order status to determine the failure step.
@@ -285,13 +228,13 @@ PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
 ## Java Demo
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```java
 String url = "https://api-sg.aliexpress.com";
 
-String appkey = "your\_appkey";
+String appkey = "your_appkey";
 
-String appSecret = "your\_appSecret";
+String appSecret = "your_appSecret";
 
 IopClient client = new IopClient(url, appkey, appSecret);
 
@@ -299,17 +242,17 @@ IopRequest request = new IopRequest();
 
 request.setApiName("aliexpress.ds.order.create");
 
-request.addApiParameter('ds\_extend\_request','{"payment":{"pay\_currency":"USD"},"promotion":{"promotion\_code":""}}');
+request.addApiParameter('ds_extend_request','{"payment":{"pay_currency":"USD"},"promotion":{"promotion_code":""}}');
 
 request.addApiParameter(
 
-'param\_place\_order\_request4\_open\_api\_d\_t\_o','
+'param_place_order_request4_open_api_d_t_o','
 
 {
 
-"out\_order\_id": "",
+"out_order_id": "",
 
-"logistics\_address": {
+"logistics_address": {
 
 "address": "WWEPerformance Center,",
 
@@ -319,67 +262,67 @@ request.addApiParameter(
 
 "city": "Orlando",
 
-"contact\_person": "person name",
+"contact_person": "person name",
 
 "country": "US",
 
 "cpf": "",
 
-"fax\_area": "",
+"fax_area": "",
 
-"fax\_country": "",
+"fax_country": "",
 
-"fax\_number": "",
+"fax_number": "",
 
-"full\_name": "full\_name",
+"full_name": "full_name",
 
 "locale": "local",
 
-"mobile\_no": "11231231231",
+"mobile_no": "11231231231",
 
-"passport\_no": "",
+"passport_no": "",
 
-"passport\_no\_date": "",
+"passport_no_date": "",
 
-"passport\_organization": "",
+"passport_organization": "",
 
-"phone\_area": "",
+"phone_area": "",
 
-"phone\_country": "+",
+"phone_country": "+",
 
-"phone\_number": "11231231231",
+"phone_number": "11231231231",
 
 "province": "Florida",
 
-"tax\_number": "",
+"tax_number": "",
 
 "zip": "32807",
 
-"rut\_no": "",
+"rut_no": "",
 
-"foreigner\_passport\_no": "",
+"foreigner_passport_no": "",
 
-"is\_foreigner": false,
+"is_foreigner": false,
 
-"vat\_no": "",
+"vat_no": "",
 
-"tax\_company": "",
+"tax_company": "",
 
-"location\_tree\_address\_id": ""
+"location_tree_address_id": ""
 
 },
 
-"product\_items": [
+"product_items": [
 
 {
 
-"product\_id": 1005002704149141,
+"product_id": 1005002704149141,
 
-"product\_count": 1,
+"product_count": 1,
 
-"sku\_attr": "14:175;5:200003528#Length -26cm",
+"sku_attr": "14:175;5:200003528#Length -26cm",
 
-"logistics\_service\_name": "CAINIAO\_FULFILLMENT\_STD"
+"logistics_service_name": "CAINIAO_FULFILLMENT_STD"
 
 }
 
@@ -392,11 +335,11 @@ request.addApiParameter(
 IopResponse response = client.execute(request, accessToken, Protocol.TOP);
 
 System.out.println(response.getBody());
-
+```
 ## PHP Demo
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```php
 <?php
 
 $url = "https://api-sg.aliexpress.com/sync";
@@ -413,17 +356,17 @@ $c = new IopClient($url, $appkey, $appSecret);
 
 $request = new IopRequest('aliexpress.ds.order.create');
 
-$request->addApiParam('ds\_extend\_request','{"payment":{"pay\_currency":"USD"},"promotion":{"promotion\_code":""}}');
+$request->addApiParam('ds_extend_request','{"payment":{"pay_currency":"USD"},"promotion":{"promotion_code":""}}');
 
 $request->addApiParam(
 
-'param\_place\_order\_request4\_open\_api\_d\_t\_o','
+'param_place_order_request4_open_api_d_t_o','
 
 {
 
-"out\_order\_id": "",
+"out_order_id": "",
 
-"logistics\_address": {
+"logistics_address": {
 
 "address": "WWEPerformance Center,",
 
@@ -433,67 +376,67 @@ $request->addApiParam(
 
 "city": "Orlando",
 
-"contact\_person": "person name",
+"contact_person": "person name",
 
 "country": "US",
 
 "cpf": "",
 
-"fax\_area": "",
+"fax_area": "",
 
-"fax\_country": "",
+"fax_country": "",
 
-"fax\_number": "",
+"fax_number": "",
 
-"full\_name": "full\_name",
+"full_name": "full_name",
 
 "locale": "local",
 
-"mobile\_no": "11231231231",
+"mobile_no": "11231231231",
 
-"passport\_no": "",
+"passport_no": "",
 
-"passport\_no\_date": "",
+"passport_no_date": "",
 
-"passport\_organization": "",
+"passport_organization": "",
 
-"phone\_area": "",
+"phone_area": "",
 
-"phone\_country": "+",
+"phone_country": "+",
 
-"phone\_number": "11231231231",
+"phone_number": "11231231231",
 
 "province": "Florida",
 
-"tax\_number": "",
+"tax_number": "",
 
 "zip": "32807",
 
-"rut\_no": "",
+"rut_no": "",
 
-"foreigner\_passport\_no": "",
+"foreigner_passport_no": "",
 
-"is\_foreigner": false,
+"is_foreigner": false,
 
-"vat\_no": "",
+"vat_no": "",
 
-"tax\_company": "",
+"tax_company": "",
 
-"location\_tree\_address\_id": ""
+"location_tree_address_id": ""
 
 },
 
-"product\_items": [
+"product_items": [
 
 {
 
-"product\_id": 1005002704149141,
+"product_id": 1005002704149141,
 
-"product\_count": 1,
+"product_count": 1,
 
-"sku\_attr": "14:175;5:200003528#Length -26cm",
+"sku_attr": "14:175;5:200003528#Length -26cm",
 
-"logistics\_service\_name": "CAINIAO\_FULFILLMENT\_STD"
+"logistics_service_name": "CAINIAO_FULFILLMENT_STD"
 
 }
 
@@ -503,8 +446,8 @@ $request->addApiParam(
 
 );
 
-var\_dump($c->execute($request, $accessToken));
-
+var_dump($c->execute($request, $accessToken));
+```
 # 
 
 # [ChangeLog](https://openservice.aliexpress.com/doc/doc.htm?spm=a2o9m.11193535.0.0.456459b2MAmd59&nodeId=27493&docId=118729#/?docId=1669)

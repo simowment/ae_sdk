@@ -20,8 +20,8 @@
 
 # logistics\_status
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```json
 DEFAULT,
 
 WAIT\_SELLER\_SEND\_GOODS,
@@ -33,3 +33,5 @@ SELLER\_SEND\_GOODS,
 BUYER\_ACCEPT\_GOODS,
 
 NO\_LOGISTICS;
+
+```

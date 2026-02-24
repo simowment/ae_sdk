@@ -6,17 +6,17 @@ After the user authorizes, they will be redirected to the redirect\_uri (callbac
 
 ## JAVA Demo
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```java
 public class MainClass {
 
 public static void main(String[] args) {
 
 String url = "https://api-sg.aliexpress.com";
 
-String appkey = "your\_appkey";
+String appkey = "your_appkey";
 
-String appSecret = "your\_appSecret";
+String appSecret = "your_appSecret";
 
 String action = "/auth/token/create";
 
@@ -26,7 +26,7 @@ IopRequest request = new IopRequest();
 
 request.setApiName(action);
 
-request.addApiParameter("code", "your\_code");
+request.addApiParameter("code", "your_code");
 
 try {
 
@@ -45,7 +45,7 @@ e.printStackTrace();
 }
 
 }
-
+```
 ## PHP Demo
 
 **！ATTENTION！：**
@@ -54,17 +54,17 @@ For system-level API requests (such as those in PHP), a different URL is require
 
 `https://api-sg.aliexpress.com/rest`
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```php
 <?php
 
 $url = "https://api-sg.aliexpress.com/rest";
 
 // For system-level request addresses, you need to use the above URL
 
-$appkey = "your\_appkey";
+$appkey = "your_appkey";
 
-$appSecret = "your\_appSecret";
+$appSecret = "your_appSecret";
 
 $action = "/auth/token/create";
 
@@ -74,62 +74,44 @@ $request = new IopRequest();
 
 $request->setApiName($action);
 
-$request->addApiParameter("code", "your\_code");
+$request->addApiParameter("code", "your_code");
 
 try {
 
 $response = $client->execute($request, Protocol::GOP);
 
-echo json\_encode($response);
+echo json_encode($response);
 
 echo $response->getGopResponseBody();
 
 } catch (Exception $e) {
 
 echo $e->getMessage();
-
+```
 ## Request
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```json
 {
-
-"refresh\_token\_valid\_time": "1500",
-
-"havana\_id": "10000",
-
-"code": "0",
-
-"expire\_time": "1500",
-
-"locale": "zh\_CN",
-
-"user\_nick": "cn1001",
-
-"access\_token": "50000601c30atpedfgu3LVvik87Ixlsvle3mSoB7701ceb156fPunYZ43GBg",
-
-"refresh\_token": "500016000300bwa2WteaQyfwBMnPxurcA0mXGhQdTt18356663CfcDTYpWoi",
-
-"account\_id": "7063844",
-
-"user\_id": "10101",
-
-"account\_platform": "seller\_center",
-
-"refresh\_expires\_in": "60",
-
-"expires\_in": "10",
-
-"sp": "global",
-
-"request\_id": "0ba2887315178178017221014",
-
-"seller\_id": "1001",
-
-"account": "xxx@126.com"
-
+  "refresh_token_valid_time": "1500",
+  "havana_id": "10000",
+  "code": "0",
+  "expire_time": "1500",
+  "locale": "zh_CN",
+  "user_nick": "cn1001",
+  "access_token": "50000601c30atpedfgu3LVvik87Ixlsvle3mSoB7701ceb156fPunYZ43GBg",
+  "refresh_token": "500016000300bwa2WteaQyfwBMnPxurcA0mXGhQdTt18356663CfcDTYpWoi",
+  "account_id": "7063844",
+  "user_id": "10101",
+  "account_platform": "seller_center",
+  "refresh_expires_in": "60",
+  "expires_in": "10",
+  "sp": "global",
+  "request_id": "0ba2887315178178017221014",
+  "seller_id": "1001",
+  "account": "xxx@126.com"
 }
-
+```
 ## The captured return field explanation
 
 |  |  |  |

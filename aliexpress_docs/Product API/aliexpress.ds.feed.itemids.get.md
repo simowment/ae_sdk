@@ -34,76 +34,49 @@
 
 ## Successful response
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```json
 {
-
-"aliexpress\_ds\_feed\_itemids\_get\_response": {
-
-"result": {
-
-"total": 4549,
-
-"products": {
-
-"number": [
-
-1005007821712176,
-
-1005007610894533
-
-]
-
-},
-
-"search\_id": "eJw1j8FOxCAQhp8GLntZoJT2wKG6NjExamI8E0KHXZSWCjRxfXqnbkzITGbmn29+TLSlGrflkrJmTHYt70TTyb5pqCkuRwPfq6lhBs2U6JXqmWwFU9RDdRfjA8Sp6FBhNmGiPuXZVu23GD9KWujXBvmqXVp8OBNxuoRKxMA44fc3JVb/WuxlyHb5JHIs4QdwxI9Hwlt8fxjcX3OaUw0olmO9rruGcDU83GH9/obhKTkbMb9GW/cLLysiK0yP6K+g9DA8nw4OO+eEQDmG6YZgEgMtgE4ns5swO17j1zOUggd/AYU1Yk0="
-
-},
-
-"ret": true,
-
-"rsp\_msg": "",
-
-"request\_id": "21413a6d17397790949651163"
-
+  "aliexpress_ds_feed_itemids_get_response": {
+    "result": {
+      "total": 4549,
+      "products": {
+        "number": [
+          1005007821712176,
+          1005007610894533
+        ]
+      },
+      "search_id": "eJw1j8FOxCAQhp8GLntZoJT2wKG6NjExamI8E0KHXZSWCjRxfXqnbkzITGbmn29+TLSlGrflkrJmTHYt70TTyb5pqCkuRwPfq6lhBs2U6JXqmWwFU9RDdRfjA8Sp6FBhNmGiPuXZVu23GD9KWujXBvmqXVp8OBNxuoRKxMA44fc3JVb/WuxlyHb5JHIs4QdwxI9Hwlt8fxjcX3OaUw0olmO9rruGcDU83GH9/obhKTkbMb9GW/cLLysiK0yP6K+g9DA8nw4OO+eEQDmG6YZgEgMtgE4ns5swO17j1zOUggd/AYU1Yk0="
+    },
+    "ret": true,
+    "rsp_msg": "",
+    "request_id": "21413a6d17397790949651163"
+  }
 }
-
-}
-
+```
 ## Faild response
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```json
 {
-
-"aliexpress\_ds\_feed\_itemids\_get\_response": {
-
-"result": {
-
-"total": 0,
-
-"products": {},
-
-"search\_id": "eJw1j9FuwzAIRb/GeU6cNFUf/DBt6m+gyMErnWOnQLZ1X1/SqRIPcDn3IiBPohA3lsohEYtSKcgSueZMcwPWZcDfFZQWDN1xaMfBd2N/OvkmocYLJMI8SyDFBcyRKi+ThrTlfJVamtuGfA+xlkSfrv+4kLr+rfPOv/+TNr1Y0xh5Kl/ucBb6Q1v5tnV+tHrGmH/lulQlgw9nva874/xRf+h7EswYFefW+6EzsRG0szPsibCzwf5gFDH3A0sPV6U="
-
-},
-
-"ret": true,
-
-"rsp\_msg": "",
-
-"request\_id": "21413a6d17406421028141001"
-
+  "aliexpress_ds_feed_itemids_get_response": {
+    "result": {
+      "total": 0,
+      "products": {},
+      "search_id": "eJw1j9FuwzAIRb/GeU6cNFUf/DBt6m+gyMErnWOnQLZ1X1/SqRIPcDn3IiBPohA3lsohEYtSKcgSueZMcwPWZcDfFZQWDN1xaMfBd2N/OvkmocYLJMI8SyDFBcyRKi+ThrTlfJVamtuGfA+xlkSfrv+4kLr+rfPOv/+TNr1Y0xh5Kl/ucBb6Q1v5tnV+tHrGmH/lulQlgw9nva874/xRf+h7EswYFefW+6EzsRG0szPsibCzwf5gFDH3A0sPV6U="
+    },
+    "ret": true,
+    "rsp_msg": "",
+    "request_id": "21413a6d17406421028141001"
+  }
 }
-
-}
-
+```
 # Demo code
 
 ## Java demo
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```java
 String url = "https://api-sg.aliexpress.com";
 
 String appkey = "your\_appkey";
@@ -124,10 +97,11 @@ IopResponse response = client.execute(request, accessToken, Protocol.TOP);
 
 System.out.println(response.getBody());
 
+```
 ## PHP demo
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```php
 <?php
 
 $url = "https://api-sg.aliexpress.com/sync";
@@ -144,16 +118,16 @@ $c = new IopClient(url,appkey,appSecret);
 
 $request = new IopRequest('aliexpress.ds.feed.itemids.get');
 
-$request->addApiParam('page\_size','200');
+$request->addApiParam('page_size','200');
 
-$request->addApiParam('category\_id','21');
+$request->addApiParam('category_id','21');
 
-$request->addApiParam('feed\_name','DS bestseller');
+$request->addApiParam('feed_name','DS bestseller');
 
-$request->addApiParam('search\_id','abc123');
+$request->addApiParam('search_id','abc123');
 
-var\_dump($c->execute($request, $accessToken));
-
+var_dump($c->execute($request, $accessToken));
+```
 # ERROR CODE
 
 # Common Issues

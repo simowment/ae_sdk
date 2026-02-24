@@ -65,88 +65,53 @@
 
 ## Successful response
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```json
 {
-
-"aliexpress\_ds\_text\_search":{
-
-"msg": "message",
-
-"code": "0",
-
-"data": {
-
-"pageIndex": "pageIndex",
-
-"pageSize": "pageSize",
-
-"totalCount": "totalCount",
-
-"products": [
-
-{
-
-"productVideoUrl": "productVideoUrl",
-
-"originalPrice": "12.73",
-
-"originalPriceCurrency": "USD",
-
-"salePrice": "6.62",
-
-"discount": "48%",
-
-"itemMainPic": "itemMainPic",
-
-"title": "title",
-
-"originalPriceFormat": "originalPriceFormat",
-
-"score": "score",
-
-"itemId": "itemId",
-
-"targetSalePrice": "6.62",
-
-"cateId": "cateId",
-
-"targetOriginalPriceCurrency": "USD",
-
-"originMinPrice": "originMinPrice",
-
-"evaluateRate": "97.8%",
-
-"salePriceFormat": "salePriceFormat",
-
-"orders": "orders",
-
-"targetOriginalPrice": "12.73",
-
-"itemUrl": "itemUrl",
-
-"salePriceCurrency": "USD"
-
+  "aliexpress_ds_text_search": {
+    "msg": "message",
+    "code": "0",
+    "data": {
+      "pageIndex": "pageIndex",
+      "pageSize": "pageSize",
+      "totalCount": "totalCount",
+      "products": [
+        {
+          "productVideoUrl": "productVideoUrl",
+          "originalPrice": "12.73",
+          "originalPriceCurrency": "USD",
+          "salePrice": "6.62",
+          "discount": "48%",
+          "itemMainPic": "itemMainPic",
+          "title": "title",
+          "originalPriceFormat": "originalPriceFormat",
+          "score": "score",
+          "itemId": "itemId",
+          "targetSalePrice": "6.62",
+          "cateId": "cateId",
+          "targetOriginalPriceCurrency": "USD",
+          "originMinPrice": "originMinPrice",
+          "evaluateRate": "97.8%",
+          "salePriceFormat": "salePriceFormat",
+          "orders": "orders",
+          "targetOriginalPrice": "12.73",
+          "itemUrl": "itemUrl",
+          "salePriceCurrency": "USD"
+        }
+      ]
+    },
+    "request_id": "0ba2887315178178017221014"
+  }
 }
-
-]
-
-},
-
-"request\_id": "0ba2887315178178017221014"
-
-}
-
-}
-
+```
 ## Faild response
 
 # Demo code
 
 ## Java demo
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```java
 String url = "https://api-sg.aliexpress.com";
 
 String appkey = "your\_appkey";
@@ -179,10 +144,11 @@ IopResponse response = client.execute(request, accessToken, Protocol.TOP);
 
 System.out.println(response.getBody());
 
+```
 ## PHP demo
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```php
 <?php
 
 $url = "https://api-sg.aliexpress.com/sync";
@@ -199,13 +165,13 @@ $request = new IopRequest('aliexpress.ds.text.search');
 
 $request->addApiParam('keyWord','\u88D9\u5B50');
 
-$request->addApiParam('local','zh\_CN');
+$request->addApiParam('local','zh_CN');
 
 $request->addApiParam('countryCode','US');
 
 $request->addApiParam('categoryId','349');
 
-$request->addApiParam('sortBy','min\_price,asc');
+$request->addApiParam('sortBy','min_price,asc');
 
 $request->addApiParam('pageSize','20');
 
@@ -217,8 +183,8 @@ $request->addApiParam('searchExtend','[{\"min\":\"min\",\"max\":\"max\",\"search
 
 $request->addApiParam('selectionName','selection name');
 
-var\_dump($c->execute($request, $accessToken));
-
+var_dump($c->execute($request, $accessToken));
+```
 # ERROR CODE
 
 # Common errors
@@ -233,8 +199,8 @@ As shown above, you can for example search "eye lashes" within your target selec
 
 What's more, you can use searchExtend param to add more search filter to better satisfying your particular search need. For example, you can bring searchExtend like follow, which means you want to search product whose seller is online within latest 48 hour.
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```json
 [
 
 {
@@ -265,4 +231,5 @@ PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 | seller online within the latest 72 hour | seller\_online | 48  72 |
 | product hot area | hot\_area | BR  US  UK/GB  FR  AU |
 
+```
 # [ChangeLog](https://openservice.aliexpress.com/doc/doc.htm?spm=a2o9m.11193535.0.0.456459b2MAmd59&nodeId=27493&docId=118729#/?docId=1669)

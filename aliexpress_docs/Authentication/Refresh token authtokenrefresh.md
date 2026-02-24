@@ -4,17 +4,17 @@
 
 ## JAVA Demo
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```java
 public class MainClass {
 
 public static void main(String[] args) {
 
 // Initialize the client with the API URL, app key, and app secretString url = "https://api-sg.aliexpress.com";
 
-String appkey = "your\_appkey";
+String appkey = "your_appkey";
 
-String appSecret = "your\_appSecret";
+String appSecret = "your_appSecret";
 
 IopClient client = new IopClient(url, appkey, appSecret);
 
@@ -24,7 +24,7 @@ IopRequest request = new IopRequest();
 
 request.setApiName("/auth/token/refresh");
 
-request.addApiParameter("refresh\_token", "Your-Refresh\_Token");
+request.addApiParameter("refresh_token", "Your-Refresh_Token");
 
 // The "Your-refreshToken" refers to the private token that you should only obtain from the login service when exchanging the access token.
 
@@ -51,7 +51,7 @@ e.printStackTrace();
 }
 
 }
-
+```
 ## PHP Demo
 
 **！ATTENTION！：**
@@ -60,8 +60,8 @@ For system-level APIs (such as PHP), the request URL is different and the follow
 
 `https://api-sg.aliexpress.com/rest`
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```php
 <?php
 
 include "Your/SDK/";
@@ -76,52 +76,34 @@ $c = new IopClient($url, $appkey, $appSecret);
 
 $request = new IopRequest('/auth/token/refresh');
 
-$request->addApiParam('refresh\_token', 'Your-refreshToken');
+$request->addApiParam('refresh_token', 'Your-refreshToken');
 
 //The "Your-refreshToken" refers to the private token that you should only obtain from the login service when exchanging the access token. Please make sure that you have obtained your own "Your-refreshToken" through the provided procedures to ensure the security and efficiency of your application.
 
-var\_dump($c->execute($request));
+var_dump($c->execute($request));
 
 **Response**
-
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
-
+```
+```json
 {
-
-"refresh\_token\_valid\_time": 1716784148000,
-
-"havana\_id": "3000020000814",
-
-"expire\_time": 1714192160000,
-
-"locale": "zh\_CN",
-
-"user\_nick": "kr1000005815atrae",
-
-"access\_token": null,
-
-"refresh\_token": null,
-
-"user\_id": "YourUserID",
-
-"account\_platform": "buyerApp",
-
-"refresh\_expires\_in": 5183988,
-
-"expires\_in": 2592000,
-
-"sp": "ae",
-
-"seller\_id": "Your-sellerID",
-
-"account": "Your-account",
-
-"code": "0",
-
-"request\_id": "212a69f317116001605067741"
-
+  "refresh_token_valid_time": 1716784148000,
+  "havana_id": "3000020000814",
+  "expire_time": 1714192160000,
+  "locale": "zh_CN",
+  "user_nick": "kr1000005815atrae",
+  "access_token": null,
+  "refresh_token": null,
+  "user_id": "YourUserID",
+  "account_platform": "buyerApp",
+  "refresh_expires_in": 5183988,
+  "expires_in": 2592000,
+  "sp": "ae",
+  "seller_id": "Your-sellerID",
+  "account": "Your-account",
+  "code": "0",
+  "request_id": "212a69f317116001605067741"
 }
-
+```
 ## Returns the status of a Field object
 
 |  |  |  |

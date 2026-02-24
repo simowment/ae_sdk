@@ -54,244 +54,131 @@
 
 ## Successful response
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```json
 {
-
-"aliexpress\_ds\_image\_searchV2\_response": {
-
-"result": {
-
-"ret": true,
-
-"next\_start\_row\_key": "522ee3d0-7a55-424d-a3ab-a347039921fe",
-
-"data": {
-
-"products": [
-
-{
-
-"volume": "700+",
-
-"category": {
-
-"first\_level": {
-
-"name": "Home & Garden",
-
-"id": "15"
-
-},
-
-"second\_level": {
-
-"name": "Pet Products",
-
-"id": "100006664"
-
+  "aliexpress_ds_image_searchV2_response": {
+    "result": {
+      "ret": true,
+      "next_start_row_key": "522ee3d0-7a55-424d-a3ab-a347039921fe",
+      "data": {
+        "products": [
+          {
+            "volume": "700+",
+            "category": {
+              "first_level": {
+                "name": "Home & Garden",
+                "id": "15"
+              },
+              "second_level": {
+                "name": "Pet Products",
+                "id": "100006664"
+              }
+            },
+            "product_detail_url": "https://www.aliexpress.com/item/1005007857219128.html?skuId=12000042560576073&pdp_ext_f=%7B%22sku_id%22%3A%2212000042560576073%22%7D",
+            "price": {
+              "sale": {
+                "value": "99",
+                "currency": "USD"
+              },
+              "original": {
+                "value": "795",
+                "currency": "USD"
+              }
+            },
+            "discount": "87",
+            "image_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sd012ee6a192442ccb2d324a6de1cc9d5p/Scratcher-Sisal-Hemp-Board-Wall-Pad-Furniture-Protective-Scratching-Post-For-Cat-Paw-Training.jpg_350x350xz.jpg",
+            "evaluate_rate": "4.9",
+            "title": "Scratcher Sisal Hemp Board Wall Pad Furniture Protective Scratching Post For Cat Paw Training",
+            "shop_id": 1103576287,
+            "product_id": "1005007857219128",
+            "similarity_score": "0.967"
+          },
+          {
+            "volume": "6",
+            "category": {
+              "first_level": {
+                "name": "Home & Garden",
+                "id": "15"
+              },
+              "second_level": {
+                "name": "Pet Products",
+                "id": "100006664"
+              }
+            },
+            "product_detail_url": "https://www.aliexpress.com/item/1005007889439386.html?skuId=12000042734519538&pdp_ext_f=%7B%22sku_id%22%3A%2212000042734519538%22%7D",
+            "price": {
+              "sale": {
+                "value": "111",
+                "currency": "USD"
+              },
+              "original": {
+                "value": "1148",
+                "currency": "USD"
+              }
+            },
+            "discount": "90",
+            "image_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sd012ee6a192442ccb2d324a6de1cc9d5p/Scratcher-Sisal-Hemp-Board-Wall-Pad-Furniture-Protective-Scratching-Post-For-Cat-Paw-Training.jpg_350x350xz.jpg",
+            "evaluate_rate": "",
+            "title": "Scratcher Sisal Hemp Board Wall Pad Furniture Protective Scratching Post For Cat Paw Training",
+            "shop_id": 1103847117,
+            "product_id": "1005007889439386",
+            "similarity_score": "0.967"
+          },
+          {
+            "volume": "1500+",
+            "category": {
+              "first_level": {
+                "name": "Home & Garden",
+                "id": "15"
+              },
+              "second_level": {
+                "name": "Pet Products",
+                "id": "100006664"
+              }
+            },
+            "product_detail_url": "https://www.aliexpress.com/item/1005007386625802.html?skuId=12000040667060586&pdp_ext_f=%7B%22sku_id%22%3A%2212000040667060586%22%7D",
+            "price": {
+              "sale": {
+                "value": "148",
+                "currency": "USD"
+              },
+              "original": {
+                "value": "1303",
+                "currency": "USD"
+              }
+            },
+            "discount": "88",
+            "image_url": "https://ae-pic-a1.aliexpress-media.com/kf/S6ebadd4fa7464ffb86fbc13742ed053ez/Natural-Sisal-Cat-Scratcher-Mat-Cat-Scratch-Mats-Horizontal-Cat-Floor-Scratching-Pad-Rug-Protect-Couch.jpg_350x350xz.jpg",
+            "evaluate_rate": "4.4",
+            "title": "Natural Sisal Cat Scratcher Mat Cat Scratch Mats Horizontal Cat Floor Scratching Pad Rug Protect Couch and Carpets",
+            "shop_id": 1102524801,
+            "product_id": "1005007386625802",
+            "similarity_score": "0.967"
+          }
+        ]
+      },
+      "total_count": 89,
+      "pagination": {
+        "has_next": true,
+        "page_no": 1,
+        "page_count": 9,
+        "page_size": 10
+      },
+      "empty": false
+    },
+    "request_id": "2102e72c17333673131128897"
+  }
 }
-
-},
-
-"product\_detail\_url": "https://www.aliexpress.com/item/1005007857219128.html?skuId=12000042560576073&pdp\_ext\_f=%7B%22sku\_id%22%3A%2212000042560576073%22%7D",
-
-"price": {
-
-"sale": {
-
-"value": "99",
-
-"currency": "USD"
-
-},
-
-"original": {
-
-"value": "795",
-
-"currency": "USD"
-
-}
-
-},
-
-"discount": "87",
-
-"image\_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sd012ee6a192442ccb2d324a6de1cc9d5p/Scratcher-Sisal-Hemp-Board-Wall-Pad-Furniture-Protective-Scratching-Post-For-Cat-Paw-Training.jpg\_350x350xz.jpg",
-
-"evaluate\_rate": "4.9",
-
-"title": "Scratcher Sisal Hemp Board Wall Pad Furniture Protective Scratching Post For Cat Paw Training",
-
-"shop\_id": 1103576287,
-
-"product\_id": "1005007857219128",
-
-"similarity\_score": "0.967"
-
-},
-
-{
-
-"volume": "6",
-
-"category": {
-
-"first\_level": {
-
-"name": "Home & Garden",
-
-"id": "15"
-
-},
-
-"second\_level": {
-
-"name": "Pet Products",
-
-"id": "100006664"
-
-}
-
-},
-
-"product\_detail\_url": "https://www.aliexpress.com/item/1005007889439386.html?skuId=12000042734519538&pdp\_ext\_f=%7B%22sku\_id%22%3A%2212000042734519538%22%7D",
-
-"price": {
-
-"sale": {
-
-"value": "111",
-
-"currency": "USD"
-
-},
-
-"original": {
-
-"value": "1148",
-
-"currency": "USD"
-
-}
-
-},
-
-"discount": "90",
-
-"image\_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sd012ee6a192442ccb2d324a6de1cc9d5p/Scratcher-Sisal-Hemp-Board-Wall-Pad-Furniture-Protective-Scratching-Post-For-Cat-Paw-Training.jpg\_350x350xz.jpg",
-
-"evaluate\_rate": "",
-
-"title": "Scratcher Sisal Hemp Board Wall Pad Furniture Protective Scratching Post For Cat Paw Training",
-
-"shop\_id": 1103847117,
-
-"product\_id": "1005007889439386",
-
-"similarity\_score": "0.967"
-
-},
-
-{
-
-"volume": "1500+",
-
-"category": {
-
-"first\_level": {
-
-"name": "Home & Garden",
-
-"id": "15"
-
-},
-
-"second\_level": {
-
-"name": "Pet Products",
-
-"id": "100006664"
-
-}
-
-},
-
-"product\_detail\_url": "https://www.aliexpress.com/item/1005007386625802.html?skuId=12000040667060586&pdp\_ext\_f=%7B%22sku\_id%22%3A%2212000040667060586%22%7D",
-
-"price": {
-
-"sale": {
-
-"value": "148",
-
-"currency": "USD"
-
-},
-
-"original": {
-
-"value": "1303",
-
-"currency": "USD"
-
-}
-
-},
-
-"discount": "88",
-
-"image\_url": "https://ae-pic-a1.aliexpress-media.com/kf/S6ebadd4fa7464ffb86fbc13742ed053ez/Natural-Sisal-Cat-Scratcher-Mat-Cat-Scratch-Mats-Horizontal-Cat-Floor-Scratching-Pad-Rug-Protect-Couch.jpg\_350x350xz.jpg",
-
-"evaluate\_rate": "4.4",
-
-"title": "Natural Sisal Cat Scratcher Mat Cat Scratch Mats Horizontal Cat Floor Scratching Pad Rug Protect Couch and Carpets",
-
-"shop\_id": 1102524801,
-
-"product\_id": "1005007386625802",
-
-"similarity\_score": "0.967"
-
-}
-
-]
-
-},
-
-"total\_count": 89,
-
-"pagination": {
-
-"has\_next": true,
-
-"page\_no": 1,
-
-"page\_count": 9,
-
-"page\_size": 10
-
-},
-
-"empty": false
-
-},
-
-"request\_id": "2102e72c17333673131128897"
-
-}
-
-}
-
+```
 ## Faild response
 
 # Demo code
 
 ## Java demo
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```java
 String url = "https://api-sg.aliexpress.com";
 
 String appkey = "your\_appkey";
@@ -306,10 +193,11 @@ IopResponse response = client.execute(request, accessToken, Protocol.TOP);
 
 System.out.println(response.getBody());
 
+```
 ## PHP demo
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```php
 <?php
 
 $url = "https://api-sg.aliexpress.com/sync";
@@ -324,10 +212,10 @@ $accessToken = "Your-accessToken";
 
 $request = new IopRequest('aliexpress.ds.image.searchV2');
 
-$request->addApiParam('param0','{\"sort\_type\":\"price\",\"image\_base64\":\"imageBase64\",\"currency\":\"USD\",\"lang\":\"en\",\"sort\_order\":\"asc\",\"ship\_to\":\"US\"}');
+$request->addApiParam('param0','{\"sort_type\":\"price\",\"image_base64\":\"imageBase64\",\"currency\":\"USD\",\"lang\":\"en\",\"sort_order\":\"asc\",\"ship_to\":\"US\"}');
 
-var\_dump($c->execute($request, $accessToken));
-
+var_dump($c->execute($request, $accessToken));
+```
 # ERROR CODE
 
 # Common errors

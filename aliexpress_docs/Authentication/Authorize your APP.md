@@ -28,12 +28,13 @@ Examples are as follows
 
 **Note that "client\_id" and "redirect\_uri" should be replaced with the content of your own application.**
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```json
 //An example of a collage authorization URL is:
 
 https://api-sg.aliexpress.com/oauth/authorize?response\_type=code&force\_auth=true&redirect\_uri=${callback-url}&client\_id=${appkey}
 
+```
 #### **2.Guide User to authorize**
 
 Authorization Page Example
@@ -56,19 +57,19 @@ After authorization, the user will jump to the redirect\_uri (callback address) 
 
 ### JAVA implementation example
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```java
 public static void main(String[] args) {
 
 // Appkey of the application.
 
 String url = "https://api-sg.aliexpress.com";
 
-String appkey = "your\_appkey";
+String appkey = "your_appkey";
 
 // AppSecret of the application.
 
-String appSecret = "your\_appSecret";
+String appSecret = "your_appSecret";
 
 // Requested API interface name.
 
@@ -84,7 +85,7 @@ IopRequest request = new IopRequest();
 
 request.setApiName(action);
 
-request.addApiParameter("code", "your\_code");
+request.addApiParameter("code", "your_code");
 
 try {
 
@@ -109,7 +110,7 @@ e.printStackTrace();
 }
 
 }
-
+```
 ### PHP implementation example
 
 **！ATTENTION！：**
@@ -118,8 +119,8 @@ e.printStackTrace();
 
 `https://api-sg.aliexpress.com/rest`
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```php
 <?php
 
 // API request address
@@ -130,11 +131,11 @@ $url = "https://api-sg.aliexpress.com/rest";
 
 // appkey of the application
 
-$appkey = "your\_appkey";
+$appkey = "your_appkey";
 
 // appSecret of the application
 
-$appSecret = "your\_appSecret";
+$appSecret = "your_appSecret";
 
 // Requested API interface name
 
@@ -150,7 +151,7 @@ $request = new IopRequest();
 
 $request->setApiName($action);
 
-$request->addApiParameter("code", "your\_code");
+$request->addApiParameter("code", "your_code");
 
 try {
 
@@ -160,7 +161,7 @@ $response = $client->execute($request, Protocol::GOP);
 
 // Output the JSON string of the request response result
 
-echo json\_encode($response);
+echo json_encode($response);
 
 // Output the GOP format string of the request response result
 
@@ -175,51 +176,50 @@ echo $e->getMessage();
 }
 
 **Request**
-
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
-
+```
+```json
 {
 
 "gopErrorCode": "0",
 
 "gopRequestId": "2141244f17116066265020000",
 
-"gopResponseBody": "{\"refresh\_token\_valid\_time\":1711779426000,
+"gopResponseBody": "{\"refresh_token_valid_time\":1711779426000,
 
-\"havana\_id\":\"300002118000\",
+\"havana_id\":\"300002118000\",
 
-\"expire\_time\":1711693026000,
+\"expire_time\":1711693026000,
 
-\"locale\":\"zh\_CN\",
+\"locale\":\"zh_CN\",
 
-\"user\_nick\":\"kr10400008150000\",
+\"user_nick\":\"kr10400008150000\",
 
-\"access\_token\":\"Your-accesstoken\",
+\"access_token\":\"Your-accesstoken\",
 
-\"refresh\_token\":\"Your-refreshtoken\",
+\"refresh_token\":\"Your-refreshtoken\",
 
-\"user\_id\":\"Your-UserID\",
+\"user_id\":\"Your-UserID\",
 
-\"account\_platform\":\"buyerApp\",
+\"account_platform\":\"buyerApp\",
 
-\"refresh\_expires\_in\":172800,
+\"refresh_expires_in\":172800,
 
-\"expires\_in\":86400,
+\"expires_in\":86400,
 
 \"sp\":\"ae\",
 
-\"seller\_id\":\"Your-sellerID\",
+\"seller_id\":\"Your-sellerID\",
 
 \"account\":\"Your-accont\",
 
 \"code\":\"0\",
 
-\"request\_id\":\"2141244f17116066265020000\"}",
+\"request_id\":\"2141244f17116066265020000\"}",
 
 "success": true
 
 }
-
+```
 ### 
 
 ### **Return field description**
@@ -281,8 +281,8 @@ The data structure returned by "/auth/token/refresh" is the same as that returne
 
 The following is the demonstration code for Java refresh token
 
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
+```java
 public class MainClass {
 
 public static void main(String[] args) {
@@ -291,9 +291,9 @@ public static void main(String[] args) {
 
 String url = "https://api-sg.aliexpress.com";
 
-String appkey = "your\_appkey";
+String appkey = "your_appkey";
 
-String appSecret = "your\_appSecret";
+String appSecret = "your_appSecret";
 
 IopClient client = new IopClient(url, appkey, appSecret);
 
@@ -303,7 +303,7 @@ IopRequest request = new IopRequest();
 
 request.setApiName("/auth/token/refresh");
 
-request.addApiParameter("refresh\_token", "Your-Refresh\_token");
+request.addApiParameter("refresh_token", "Your-Refresh_token");
 
 try {
 
@@ -328,9 +328,8 @@ e.printStackTrace();
 }
 
 PHP
-
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
-
+```
+```php
 <?php
 
 $url = "https://api-sg.aliexpress.com/rest";
@@ -343,50 +342,32 @@ $c = new IopClient($url, $appkey, $appSecret);
 
 $request = new IopRequest('/auth/token/refresh');
 
-$request->addApiParam('refresh\_token', 'Your-refreshtoken');//Please obtain Your-refreshtoken from the create/token response.
+$request->addApiParam('refresh_token', 'Your-refreshtoken');//Please obtain Your-refreshtoken from the create/token response.
 
-var\_dump($c->execute($request));
+var_dump($c->execute($request));
 
 **return value**
-
-PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
-
+```
+```json
 {
-
-"refresh\_token\_valid\_time":1716784148000,
-
-"havana\_id":"3000021188814",
-
-"expire\_time":1714192160000,
-
-"locale":"zh\_CN",
-
-"user\_nick":"kr10404958150000",
-
-"access\_token":"",
-
-"refresh\_token":" ",
-
-"user\_id":"2637908814",
-
-"account\_platform":"buyerApp",
-
-"refresh\_expires\_in":5183988,
-
-"expires\_in":2592000,
-
-"sp":"ae",
-
-"seller\_id":"2637908814",
-
-"account":"ae\_test\_u0000@163.com",
-
-"code":"0",
-
-"request\_id":"212a69f317116001605067741"
-
+  "refresh_token_valid_time": 1716784148000,
+  "havana_id": "3000021188814",
+  "expire_time": 1714192160000,
+  "locale": "zh_CN",
+  "user_nick": "kr10404958150000",
+  "access_token": "",
+  "refresh_token": " ",
+  "user_id": "2637908814",
+  "account_platform": "buyerApp",
+  "refresh_expires_in": 5183988,
+  "expires_in": 2592000,
+  "sp": "ae",
+  "seller_id": "2637908814",
+  "account": "ae_test_u0000@163.com",
+  "code": "0",
+  "request_id": "212a69f317116001605067741"
 }
-
+```
 ### 
 
 ### Return field explanation
