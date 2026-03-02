@@ -384,19 +384,25 @@ export class DropshipperClient extends AESystemClient {
   async productDetails(args: DS_Product_Params) {
     let response = await this.execute("aliexpress.ds.product.get", args);
     if (response.ok) {
-      const data = response.data.aliexpress_ds_product_get_response.result;
+      const result = response.data.aliexpress_ds_product_get_response?.result;
+      
+      if (!result) {
+        console.error("[AliExpress SDK] productDetails: No result in response");
+        return response;
+      }
+      
       // Fix weird AE API responses into a predefined struct
-      data.ae_item_properties = extractNestedArray(
-        data.ae_item_properties,
+      result.ae_item_properties = extractNestedArray(
+        result.ae_item_properties,
         "ae_item_property",
       );
 
-      data.ae_item_sku_info_dtos = extractNestedArray(
-        data.ae_item_sku_info_dtos,
+      result.ae_item_sku_info_dtos = extractNestedArray(
+        result.ae_item_sku_info_dtos,
         "ae_item_sku_info_d_t_o",
       );
 
-      data.ae_item_sku_info_dtos.forEach((sku) => {
+      result.ae_item_sku_info_dtos.forEach((sku) => {
         if ((sku as any).ae_sku_property_dtos) {
           sku.aeop_s_k_u_propertys = (sku as any).ae_sku_property_dtos;
           delete (sku as any).ae_sku_property_dtos;
@@ -408,9 +414,9 @@ export class DropshipperClient extends AESystemClient {
         );
       });
 
-      if (data.ae_multimedia_info_dto?.ae_video_dtos) {
-        data.ae_multimedia_info_dto.ae_video_dtos = extractNestedArray(
-          data.ae_multimedia_info_dto.ae_video_dtos,
+      if (result.ae_multimedia_info_dto?.ae_video_dtos) {
+        result.ae_multimedia_info_dto.ae_video_dtos = extractNestedArray(
+          result.ae_multimedia_info_dto.ae_video_dtos,
           "ae_video_d_t_o",
         );
       }
