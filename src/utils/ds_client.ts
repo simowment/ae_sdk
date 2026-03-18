@@ -30,6 +30,15 @@ import type {
   DS_Add_Info_Arguments,
   DS_Freight_Calculation_Arguments,
   AE_Place_Order_Payment_Params,
+  DS_Freight_Query_Params,
+  DS_Order_Tracking_Get_Params,
+  DS_Feed_Itemids_Get_Params,
+  DS_Image_SearchV2_Params,
+  DS_Member_Benefit_Get_Params,
+  DS_Product_Specialinfo_Get_Params,
+  DS_Product_Wholesale_Get_Params,
+  DS_Search_Event_Report_Params,
+  DS_Text_Search_Params,
 } from "../types";
 import { AESystemClient } from "./system_client";
 
@@ -422,5 +431,116 @@ export class DropshipperClient extends AESystemClient {
       }
     }
     return response;
+  }
+
+  /**
+   * Retrieves dropshipping freight information.
+   *
+   * @param args Freight query parameters
+   * @returns API response with delivery options
+   * @link https://openservice.aliexpress.com/doc/api.htm#/api?cid=21038&path=aliexpress.ds.freight.query&methodType=GET/POST
+   */
+  async queryFreight(args: DS_Freight_Query_Params) {
+    let payload = { ...args };
+    if (typeof payload.queryDeliveryReq === "object") {
+      payload.queryDeliveryReq = JSON.stringify(payload.queryDeliveryReq);
+    }
+    return await this.execute("aliexpress.ds.freight.query", payload as any);
+  }
+
+  /**
+   * Get DropShip Order Tracking info
+   *
+   * @param args Tracking parameters
+   * @returns API response with tracking detail
+   * @link https://openservice.aliexpress.com/doc/api.htm#/api?cid=21038&path=aliexpress.ds.order.tracking.get&methodType=GET/POST
+   */
+  async getOrderTracking(args: DS_Order_Tracking_Get_Params) {
+    return await this.execute("aliexpress.ds.order.tracking.get", args);
+  }
+
+  /**
+   * fetch item id list by feedname
+   *
+   * @param args Parameters
+   * @returns API response
+   * @link https://openservice.aliexpress.com/doc/api.htm#/api?cid=21038&path=aliexpress.ds.feed.itemids.get&methodType=GET/POST
+   */
+  async getFeedItemIds(args: DS_Feed_Itemids_Get_Params) {
+    return await this.execute("aliexpress.ds.feed.itemids.get", args);
+  }
+
+  /**
+   * ae dropshiper image search v2
+   *
+   * @param args Parameters
+   * @returns API response
+   */
+  async searchByImageV2(args: DS_Image_SearchV2_Params) {
+    let payload = { ...args };
+    if (typeof payload.param0 === "object") {
+      payload.param0 = JSON.stringify(payload.param0);
+    }
+    return await this.execute("aliexpress.ds.image.searchV2", payload as any);
+  }
+
+  /**
+   * The API for querying member benefit detail
+   *
+   * @returns API response
+   * @link https://openservice.aliexpress.com/doc/api.htm#/api?cid=21038&path=aliexpress.ds.member.benefit.get&methodType=GET/POST
+   */
+  async getMemberBenefit(args: DS_Member_Benefit_Get_Params = {}) {
+    return await this.execute("aliexpress.ds.member.benefit.get", args);
+  }
+
+  /**
+   * get products' special info like certification
+   *
+   * @param args Parameters
+   * @returns API response
+   * @link https://openservice.aliexpress.com/doc/api.htm#/api?cid=21038&path=aliexpress.ds.product.specialinfo.get&methodType=GET/POST
+   */
+  async getProductSpecialInfo(args: DS_Product_Specialinfo_Get_Params) {
+    let payload = { ...args } as any;
+    if (Array.isArray(payload.countryCodes)) {
+      payload.countryCodes = payload.countryCodes.join(",");
+    }
+    return await this.execute("aliexpress.ds.product.specialinfo.get", payload);
+  }
+
+  /**
+   * query product wholesale info for dropshipping business
+   *
+   * @param args Parameters
+   * @returns API response
+   * @link https://openservice.aliexpress.com/doc/api.htm#/api?cid=21038&path=aliexpress.ds.product.wholesale.get&methodType=GET/POST
+   */
+  async getProductWholesale(args: DS_Product_Wholesale_Get_Params) {
+    return await this.execute("aliexpress.ds.product.wholesale.get", args as any);
+  }
+
+  /**
+   * Used for report business event to help analysis out-site business CR
+   *
+   * @param args Parameters
+   * @returns API response
+   */
+  async reportSearchEvent(args: DS_Search_Event_Report_Params) {
+    return await this.execute("aliexpress.ds.search.event.report", args);
+  }
+
+  /**
+   * text search for ds
+   *
+   * @param args Parameters
+   * @returns API response
+   */
+  async searchByText(args: DS_Text_Search_Params) {
+    let payload = { ...args };
+    if (payload.searchExtend && typeof payload.searchExtend === "object") {
+      payload.searchExtend = JSON.stringify(payload.searchExtend);
+    }
+    return await this.execute("aliexpress.ds.text.search", payload as any);
   }
 }

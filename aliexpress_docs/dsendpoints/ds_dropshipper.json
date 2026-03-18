@@ -1,0 +1,1094 @@
+[
+  {
+    "api": "aliexpress.ds.order.create",
+    "description": "API for place order in DS business",
+    "parameters": [
+      {
+        "name": "ds_extend_request",
+        "type": "Object",
+        "required": false,
+        "description": "DS ExtendParam"
+      },
+      {
+        "name": "param_place_order_request4_open_api_d_t_o",
+        "type": "Object",
+        "required": true,
+        "description": "specific order parameters"
+      }
+    ],
+    "response_demo": {
+      "code": "0",
+      "aliexpress_ds_order_create_response": {
+        "result": {
+          "error_msg": "PARM_ILLEGL",
+          "error_code": "PARM_ILLEGL",
+          "is_success": "true",
+          "order_list": [
+            1000000000
+          ]
+        }
+      },
+      "request_id": "0ba2887315178178017221014"
+    },
+    "errors": [
+      {
+        "code": "B_DROPSHIPPER_DELIVERY_ADDRESS_VALIDATE_FAIL",
+        "message": "B_DROPSHIPPER_DELIVERY_ADDRESS_VALIDATE_FAIL",
+        "solution": "The address is wrong, please check the address"
+      },
+      {
+        "code": "B_DROPSHIPPER_DELIVERY_ADDRESS_CPF_CN_INVALID",
+        "message": "B_DROPSHIPPER_DELIVERY_ADDRESS_CPF_CN_INVALID",
+        "solution": "CPF error, please check CPF"
+      },
+      {
+        "code": "B_DROPSHIPPER_DELIVERY_ADDRESS_CPF_NOT_MATCH",
+        "message": "B_DROPSHIPPER_DELIVERY_ADDRESS_CPF_NOT_MATCH",
+        "solution": "CPF error, please check CPF"
+      },
+      {
+        "code": "BLACKLIST_BUYER_IN_LIST",
+        "message": "BLACKLIST_BUYER_IN_LIST",
+        "solution": "The user ID status is abnormal. Please try to change the user to place the order."
+      },
+      {
+        "code": "USER_ACCOUNT_DISABLED",
+        "message": "USER_ACCOUNT_DISABLED",
+        "solution": "The user ID status is abnormal. Please try to change the user to place the order."
+      },
+      {
+        "code": "PRICE_PAY_CURRENCY_ERROR",
+        "message": "PRICE_PAY_CURRENCY_ERROR",
+        "solution": "Products should declare as same currency."
+      },
+      {
+        "code": "DELIVERY_METHOD_NOT_EXIST",
+        "message": "DELIVERY_METHOD_NOT_EXIST",
+        "solution": "Please fill valid delivery method (You can use se aliexpress.freight.query check it)"
+      },
+      {
+        "code": "INVENTORY_HOLD_ERROR",
+        "message": "INVENTORY_HOLD_ERROR",
+        "solution": "Inventory is insufficient or system error occured."
+      },
+      {
+        "code": "REPEATED_ORDER_ERROR",
+        "message": "REPEATED_ORDER_ERROR",
+        "solution": "Duplicate order, please try again"
+      },
+      {
+        "code": "ERROR_WHEN_BUILD_FOR_PLACE_ORDER",
+        "message": "ERROR_WHEN_BUILD_FOR_PLACE_ORDER",
+        "solution": "Order cannot be placed,Need to contact technical support"
+      },
+      {
+        "code": "A001_ORDER_CANNOT_BE_PLACED",
+        "message": "A001_ORDER_CANNOT_BE_PLACED",
+        "solution": "Order cannot be placed,Need to contact technical support"
+      },
+      {
+        "code": "A002_INVALID_ZONE",
+        "message": "A002_INVALID_ZONE",
+        "solution": "Order cannot be placed,Need to contact technical support"
+      },
+      {
+        "code": "A003_SUSPICIOUS_BUYER",
+        "message": "A003_SUSPICIOUS_BUYER",
+        "solution": "Order cannot be placed,Need to contact technical support"
+      },
+      {
+        "code": "A004_CANNOT_USER_COUPON",
+        "message": "A004_CANNOT_USER_COUPON",
+        "solution": "Order cannot be placed,Need to contact technical support"
+      },
+      {
+        "code": "A005_INVALID_COUNTRIES",
+        "message": "A005_INVALID_COUNTRIES",
+        "solution": "Order cannot be placed,Need to contact technical support"
+      },
+      {
+        "code": "A006_INVALID_ACCOUNT_INFO",
+        "message": "A006_INVALID_ACCOUNT_INFO",
+        "solution": "Order cannot be placed,Need to contact technical support"
+      }
+    ]
+  },
+  {
+    "api": "aliexpress.ds.category.get",
+    "description": "It is an API for fetch AE Category's ID and Category Name:\n\n- We export level categories\n\n- We support i18n categories names. Supported languages: hi\nde\nru\npt\nko\nin\nen\nit\nfr\nzh\nes\niw\nar\nvi\nth\nuk\nja\nid\npl\nhe\nnl\ntr \n\n- If you have level 3 category's id or level 4, you can query to parent category info(level 2) from this API\n",
+    "parameters": [
+      {
+        "name": "categoryId",
+        "type": "String",
+        "required": false,
+        "description": "categoryId"
+      },
+      {
+        "name": "language",
+        "type": "String",
+        "required": false,
+        "description": "language:hi de ru pt ko in en it fr zh es iw ar vi th uk ja id pl he nl tr"
+      },
+      {
+        "name": "app_signature",
+        "type": "String",
+        "required": false,
+        "description": "signature"
+      }
+    ],
+    "response_demo": {
+      "code": "0",
+      "aliexpress_ds_category_get_response": {
+        "resp_result": {
+          "result": {
+            "total_result_count": "111",
+            "categories": [
+              {
+                "parent_category_id": "22222",
+                "category_name": "dress",
+                "category_id": "111111"
+              }
+            ]
+          },
+          "resp_code": "200",
+          "resp_msg": "success"
+        }
+      },
+      "request_id": "0ba2887315178178017221014"
+    },
+    "errors": [
+      {
+        "code": "UnsupportedParamMapping",
+        "message": "UnsupportedParamMapping",
+        "solution": "Unsupported parameters, please check the parameters"
+      }
+    ]
+  },
+  {
+    "api": "aliexpress.ds.freight.query",
+    "description": "Freight Query API - you can get delivery info from this api/include price, available delivery method",
+    "parameters": [
+      {
+        "name": "queryDeliveryReq",
+        "type": "Object",
+        "required": true,
+        "description": "delivery query request"
+      }
+    ],
+    "response_demo": {
+      "code": "0",
+      "aliexpress_ds_freight_query_response": {
+        "result": {
+          "msg": "Call succeeds",
+          "code": "200",
+          "success": "true",
+          "delivery_options": [
+            {
+              "code": "CAINIAO_FULFILLMENT_STD",
+              "shipping_fee_currency": "USD",
+              "free_shipping": "false",
+              "mayHavePFS": "false",
+              "guaranteed_delivery_days": "100",
+              "max_delivery_days": "40",
+              "tracking": "true",
+              "shipping_fee_format": "US $1.99",
+              "free_shipping_threshold": "$10.00",
+              "estimated_delivery_time": "null",
+              "delivery_date_desc": "null",
+              "company": "AliExpress Selection Standard",
+              "ship_from_country": "CN",
+              "min_delivery_days": "20",
+              "available_stock": "100",
+              "ddpIncludeVATTax": "true",
+              "shipping_fee_cent": "1.99"
+            }
+          ]
+        }
+      },
+      "request_id": "0ba2887315178178017221014"
+    },
+    "errors": [
+      {
+        "code": "DELIVERY_NOT_AVAILABLE_TO_YOUR_ADDRESS",
+        "message": "DELIVERY_NOT_AVAILABLE_TO_YOUR_ADDRESS",
+        "solution": "Logistics cannot be delivered to the specified address"
+      },
+      {
+        "code": "DELIVERY_INFO_EMPTY",
+        "message": "DELIVERY_INFO_EMPTY",
+        "solution": "The product ID is wrong, please check the product ID"
+      }
+    ]
+  },
+  {
+    "api": "aliexpress.ds.order.tracking.get",
+    "description": "Get DropShip Order Tracking info",
+    "parameters": [
+      {
+        "name": "ae_order_id",
+        "type": "String",
+        "required": true,
+        "description": "Order ID which you get from order.create"
+      },
+      {
+        "name": "language",
+        "type": "String",
+        "required": true,
+        "description": "language"
+      }
+    ],
+    "response_demo": {
+      "code": "0",
+      "aliexpress_ds_order_tracking_get_response": {
+        "result": {
+          "msg": "error message",
+          "ret": "true",
+          "code": "error code",
+          "data": {
+            "tracking_detail_line_list": [
+              {
+                "detail_node_list": [
+                  {
+                    "time_stamp": "1720181940000",
+                    "tracking_detail_desc": "Package delivered",
+                    "tracking_name": "Delivery update"
+                  }
+                ],
+                "package_item_list": [
+                  {
+                    "sku_desc": "Color:Large",
+                    "quantity": "1",
+                    "item_id": "1005005511268056",
+                    "sku_id": "12000033361133017",
+                    "item_title": "car sunshade car sunshade retractable sunscreen heat insulation front windshield parasol"
+                  }
+                ],
+                "carrier_name": "AliExpress Selection Standard",
+                "mail_no": "62727952231",
+                "eta_time_stamps": "1720514236934"
+              }
+            ]
+          }
+        }
+      },
+      "request_id": "0ba2887315178178017221014"
+    },
+    "errors": [
+      {
+        "code": "UnsupportedParamMapping",
+        "message": "UnsupportedParamMapping",
+        "solution": "Parameter error, please check the parameters"
+      },
+      {
+        "code": "TRACKING DATA NOT FOUND",
+        "message": "TRACKING DATA NOT FOUND",
+        "solution": "The logistics number is wrong, please check the logistics number"
+      }
+    ]
+  },
+  {
+    "api": "aliexpress.ds.feed.itemids.get",
+    "description": "fetch item id list by feedname",
+    "parameters": [
+      {
+        "name": "page_size",
+        "type": "Number",
+        "required": false,
+        "description": "number of each page"
+      },
+      {
+        "name": "category_id",
+        "type": "String",
+        "required": false,
+        "description": "first level category id, you can get from category query"
+      },
+      {
+        "name": "feed_name",
+        "type": "String",
+        "required": true,
+        "description": "query api ‘aliexpress.ds.feedname.get’"
+      },
+      {
+        "name": "search_id",
+        "type": "String",
+        "required": false,
+        "description": ""
+      }
+    ],
+    "response_demo": {
+      "aliexpress_ds_feed_itemids_get_response": {
+        "result": {
+          "total": "total item id left ",
+          "products": [],
+          "search_id": "search id"
+        },
+        "ret": "true",
+        "rsp_code": "200",
+        "rsp_msg": "success"
+      },
+      "code": "0",
+      "request_id": "0ba2887315178178017221014"
+    },
+    "errors": []
+  },
+  {
+    "api": "aliexpress.logistics.buyer.freight.calculate",
+    "description": "Freight calculation interface provided for buyers",
+    "parameters": [
+      {
+        "name": "param_aeop_freight_calculate_for_buyer_d_t_o",
+        "type": "Object",
+        "required": true,
+        "description": "Shipping Calculation Request Parameters"
+      }
+    ],
+    "response_demo": {
+      "code": "0",
+      "aliexpress_logistics_buyer_freight_calculate_response": {
+        "result": {
+          "error_desc": "product id is needed.",
+          "success": "true",
+          "aeop_freight_calculate_result_for_buyer_d_t_o_list": [
+            {
+              "service_name": "CAINIAO_STANDARD",
+              "estimated_delivery_time": "5-8day",
+              "freight": {
+                "amount": "1.0",
+                "cent": "1000",
+                "currency_code": "USD"
+              },
+              "error_code": "0",
+              "tracking_available": "true"
+            }
+          ]
+        }
+      },
+      "request_id": "0ba2887315178178017221014"
+    },
+    "errors": []
+  },
+  {
+    "api": "aliexpress.ds.image.searchV2",
+    "description": "ae dropshiper image search v2",
+    "parameters": [
+      {
+        "name": "param0",
+        "type": "Object",
+        "required": false,
+        "description": "param0"
+      }
+    ],
+    "response_demo": {
+      "code": "0",
+      "aliexpress_ds_image_searchV2_response": {
+        "result": {
+          "ret": "true",
+          "code": "null",
+          "data": [
+            {
+              "latest_volume": "25",
+              "ship_from": "US",
+              "product_detail_url": "https://www.aliexpress.com/item/1005006918079912.html?skuId=12000038722872673&pdp_ext_f=%7B%22sku_id%22%3A%2212000038722872673%22%7D",
+              "target_sale_price": "2532",
+              "second_level_category_id": "1417",
+              "discount": "65",
+              "product_main_image_url": "//ae-pic-a1.aliexpress-media.com/kf/S4ecd9088593344a1b794f748c06dc3b0R/12-16-8-21V-Cordless-Drill-Rechargeable-Electric-Screwdriver-Lithium-Battery-Household-Multi-function-2-Speed.jpg_350x350xz.jpg",
+              "evaluate_rate": "4.4",
+              "first_level_category_id": "1420",
+              "target_sale_price_currency": "USD",
+              "product_title": "12/16.8/21V Cordless Drill Rechargeable Electric Screwdriver Lithium Battery Household Multi-function 2 Speed Power Tools",
+              "shop_id": "1103438687",
+              "second_level_category_title": "Power Tools",
+              "target_original_price_currency": "USD",
+              "product_id": "1005006918079912",
+              "first_level_category_title": "Tools",
+              "similarity_score": "0.967",
+              "target_original_price": "7353"
+            }
+          ],
+          "messages": "null",
+          "empty": "false"
+        }
+      },
+      "request_id": "0ba2887315178178017221014"
+    },
+    "errors": []
+  },
+  {
+    "api": "aliexpress.trade.ds.order.get",
+    "description": "buyers query order details for dropshipper",
+    "parameters": [
+      {
+        "name": "single_order_query",
+        "type": "Object",
+        "required": true,
+        "description": "order query conditions"
+      }
+    ],
+    "response_demo": {
+      "aliexpress_trade_ds_order_get_response": {
+        "result": {
+          "gmt_create": "2018-08-28 05:39:01",
+          "order_status": "FUND_PROCESSING",
+          "logistics_info_list": [
+            {
+              "logistics_service": "EMS",
+              "logistics_no": "CP0_318495001"
+            }
+          ],
+          "pay_timeout_second": "86400",
+          "store_info": {
+            "store_id": "1046007",
+            "store_name": "John's Shoes Shop",
+            "store_url": "https://www.aliexpress.com/store/1046007"
+          },
+          "user_order_amount": {
+            "amount": "199.00",
+            "currency_code": "USD"
+          },
+          "order_paidtime_string": "2019-06-03T18:05:47-07:00[America/Los_Angeles]",
+          "order_amount": {
+            "amount": "199.00",
+            "currency_code": "USD"
+          },
+          "child_order_list": [
+            {
+              "shipping_discount_fee": {
+                "amount": "299.00",
+                "currency_code": "USD"
+              },
+              "sale_fee": {
+                "amount": "299.00",
+                "currency_code": "USD"
+              },
+              "end_reason": "CANCELED",
+              "actual_fee": {
+                "amount": "299.00",
+                "currency_code": "USD"
+              },
+              "product_count": "3",
+              "sku_id": "12345",
+              "sale_discount_fee": {
+                "amount": "299.00",
+                "currency_code": "USD"
+              },
+              "product_price": {
+                "amount": "299.00",
+                "currency_code": "USD"
+              },
+              "price_include_tax": "true",
+              "product_name": "John's Shoes",
+              "shipping_fee": {
+                "amount": "299.00",
+                "currency_code": "USD"
+              },
+              "actual_shipping_fee": {
+                "amount": "299.00",
+                "currency_code": "USD"
+              },
+              "product_id": "2100000012",
+              "already_include_tax": "true",
+              "actual_tax_fee": {
+                "amount": "199.00",
+                "currency_code": "USD"
+              }
+            }
+          ],
+          "logistics_status": "SELLER_SEND_GOODS"
+        }
+      },
+      "code": "0",
+      "request_id": "0ba2887315178178017221014"
+    },
+    "errors": [
+      {
+        "code": "isv.insufficient-permission",
+        "message": "isv.insufficient-permission",
+        "solution": "Insufficient permissions，please check the parameters"
+      },
+      {
+        "code": "isp.service-unavailable",
+        "message": "isp.service-unavailable",
+        "solution": "Service timed out, please try again"
+      },
+      {
+        "code": "isv.invalid-authorization",
+        "message": "isv.invalid-authorization",
+        "solution": "Accessing data not belonging to you，please check the parameters"
+      },
+      {
+        "code": "InternalError",
+        "message": "InternalError",
+        "solution": "System error,Need to contact technical support"
+      }
+    ]
+  },
+  {
+    "api": "aliexpress.ds.member.benefit.get",
+    "description": "The API for querying member benefit detail",
+    "parameters": [],
+    "response_demo": {
+      "code": "0",
+      "aliexpress_ds_member_benefit_get_response": {
+        "result": [
+          {
+            "canApply": "true",
+            "code": "auto-pay",
+            "title": "auto-pay",
+            "canBenefit": "true"
+          }
+        ],
+        "rsp_code": "rsp_code",
+        "rsp_msg": "rsp_msg"
+      },
+      "request_id": "0ba2887315178178017221014"
+    },
+    "errors": []
+  },
+  {
+    "api": "aliexpress.ds.product.specialinfo.get",
+    "description": "get products' special info like certification",
+    "parameters": [
+      {
+        "name": "itemId",
+        "type": "Number",
+        "required": true,
+        "description": "product id"
+      },
+      {
+        "name": "countryCodes",
+        "type": "String[]",
+        "required": true,
+        "description": "country code"
+      },
+      {
+        "name": "appKey",
+        "type": "String",
+        "required": true,
+        "description": "your appkey"
+      }
+    ],
+    "response_demo": {
+      "code": "0",
+      "aliexpress_ds_product_specialinfo_get_response": {
+        "result": {
+          "ret": "true",
+          "code": "null",
+          "data": {
+            "item_qualification_list": [
+              {
+                "value_type": "EU_CE",
+                "name": "null",
+                "value": "https://example.pdf",
+                "key": "item_EU_CE_certificate"
+              }
+            ],
+            "product_id": "317776878"
+          },
+          "err_message": "\"\""
+        }
+      },
+      "request_id": "0ba2887315178178017221014"
+    },
+    "errors": []
+  },
+  {
+    "api": "aliexpress.ds.product.wholesale.get",
+    "description": "query product wholesale info for dropshipping business",
+    "parameters": [
+      {
+        "name": "ship_to_country",
+        "type": "String",
+        "required": true,
+        "description": "Country"
+      },
+      {
+        "name": "product_id",
+        "type": "Number",
+        "required": true,
+        "description": "Item ID"
+      },
+      {
+        "name": "target_currency",
+        "type": "String",
+        "required": false,
+        "description": "Target currency"
+      },
+      {
+        "name": "target_language",
+        "type": "String",
+        "required": false,
+        "description": "hi de ru pt ko in en it fr zh es iw ar vi th uk ja id pl he nl tr (lowercase) or \"en_US\"、\"ko_KR\"..."
+      },
+      {
+        "name": "remove_personal_benefit",
+        "type": "Boolean",
+        "required": false,
+        "description": "if true, you will not get any crowd type promotion"
+      }
+    ],
+    "response_demo": {
+      "code": "0",
+      "aliexpress_ds_product_wholesale_get_response": {
+        "result": {
+          "ae_item_sku_info_dtos": [
+            {
+              "sku_attr": "73:175#Black Green;71:193#Polarized",
+              "offer_sale_price": "3.94",
+              "ipm_sku_stock": "5426",
+              "sku_stock": "true",
+              "sku_id": "12000027158136202",
+              "wholesale_price_tiers": [
+                {
+                  "min_quantity": "1",
+                  "wholesale_price": "\"5.78\"",
+                  "discount": "0.52"
+                }
+              ],
+              "ean_code": "eanCode",
+              "limit_strategy": "create_order_fail",
+              "price_include_tax": "true",
+              "currency_code": "USD",
+              "sku_price": "3.94",
+              "buy_amount_limit_set_by_promotion": "3",
+              "offer_bulk_sale_price": "3.74",
+              "sku_available_stock": "57",
+              "id": "73:175#Black Green;71:193#Polarized",
+              "sku_bulk_order": "10",
+              "barcode": "320325455",
+              "sku_code": "S96470",
+              "ae_sku_property_dtos": [
+                {
+                  "sku_property_value": "green",
+                  "sku_image": "https://ae04.alicdn.com/kf/Hba46f8222fdf4440a271134f8ce2ca2aB.jpg",
+                  "sku_property_name": "Lenses Color",
+                  "property_value_definition_name": "Black Green",
+                  "property_value_id": "175",
+                  "sku_property_id": "73"
+                }
+              ]
+            }
+          ],
+          "ae_multimedia_info_dto": {
+            "ae_video_dtos": [
+              {
+                "media_status": "approved",
+                "media_type": "MAIN_IMAGE_VIDEO",
+                "poster_url": "https://img.alicdn.com/imgextra/i4/6000000004252/O1CN01R1TCD21hHSjEOLpKT_!!6000000004252-0-tbvideo.jpg",
+                "ali_member_id": "227887939",
+                "media_id": "296195919792",
+                "media_url": "media url"
+              }
+            ],
+            "image_urls": "https://ae04.alicdn.com/kf/H551494696f2342edbeee5d2f288f4d1cv.jpg;https://ae04.alicdn.com/kf/H847c9c1b04614adfa20f042cc4490df6S.jpg;https://ae04.alicdn.com/kf/H1936d341e4bf4773ace153b527070a07C.jpg;https://ae04.alicdn.com/kf/Hf0cc14d4cc5741dc91b6dcf90bf5553cu.jpg;https://ae04.alicdn.com/kf/H80cb5bc712984795a850e9fc3a156d9fV.jpg;https://ae04.alicdn.com/kf/H71d81f9898af4d72b3bd18f7fffeb557j.jpg"
+          },
+          "package_info_dto": {
+            "package_width": "8",
+            "package_height": "6",
+            "package_length": "18",
+            "gross_weight": "0.050",
+            "package_type": "false",
+            "product_unit": "100000015",
+            "base_unit": "2"
+          },
+          "logistics_info_dto": {
+            "delivery_time": "5",
+            "ship_to_country": "CA"
+          },
+          "product_id_converter_result": {
+            "main_product_id": "32982857990",
+            "sub_product_id": {
+              "US": 2251832796543238
+            }
+          },
+          "ae_item_base_info_dto": {
+            "gmt_create": "0",
+            "mobile_detail": "<div>This is a product</div>",
+            "subject": "FUQIAN 2022 Fashion Square Polarized Sunglasses Men Vintage Plastic Male Sun Glasses Women Stylish Black Sport Shades UV400",
+            "category_sequence": "(Beta Release) Only open to whitelist appkey",
+            "evaluation_count": "1004",
+            "ws_display": "expire_offline",
+            "sales_count": "1000+",
+            "product_status_type": "onSelling",
+            "avg_evaluation_rating": "4.8",
+            "gmt_modified": "0",
+            "currency_code": "CNY",
+            "owner_member_seq_long": "227887939",
+            "category_id": "33902",
+            "product_id": "4000903675543",
+            "detail": "<div>This is a product</div>",
+            "ws_offline_date": "0"
+          },
+          "has_whole_sale": "true",
+          "ae_item_properties": [
+            {
+              "attr_name_id": "2",
+              "attr_value_id": "110567917",
+              "attr_value_unit": "piece",
+              "attr_name": "Brand Name",
+              "attr_value_start": "1",
+              "attr_value_end": "10",
+              "attr_value": "FUQIAN"
+            }
+          ],
+          "ae_store_info": {
+            "store_id": "4874072",
+            "shipping_speed_rating": "4.7",
+            "communication_rating": "4.7",
+            "store_name": "FUQIAN Eyewear Store",
+            "store_country_code": "CN",
+            "item_as_described_rating": "4.7"
+          }
+        },
+        "rsp_code": "200",
+        "rsp_msg": "Call succeeds"
+      },
+      "request_id": "0ba2887315178178017221014"
+    },
+    "errors": [
+      {
+        "code": "All SKU Unsaleable",
+        "message": "All SKU Unsaleable",
+        "solution": "The item is not available for sale, please exchange it."
+      },
+      {
+        "code": "ITEM_ID_NOT_FOUND",
+        "message": "ITEM_ID_NOT_FOUND",
+        "solution": "Product not found, please check product ID"
+      }
+    ]
+  },
+  {
+    "api": "aliexpress.ds.product.get",
+    "description": "product info query for ds",
+    "parameters": [
+      {
+        "name": "ship_to_country",
+        "type": "String",
+        "required": true,
+        "description": "Country"
+      },
+      {
+        "name": "product_id",
+        "type": "Number",
+        "required": true,
+        "description": "Item ID"
+      },
+      {
+        "name": "target_currency",
+        "type": "String",
+        "required": false,
+        "description": "Target currency"
+      },
+      {
+        "name": "target_language",
+        "type": "String",
+        "required": false,
+        "description": "hi de ru pt ko in en it fr zh es iw ar vi th uk ja id pl he nl tr (lowercase) or \"en_US\"、\"ko_KR\"..."
+      },
+      {
+        "name": "remove_personal_benefit",
+        "type": "Boolean",
+        "required": false,
+        "description": "if true, you will not get any crowd type promotion"
+      },
+      {
+        "name": "biz_model",
+        "type": "String",
+        "required": false,
+        "description": "BETA version for open api business model"
+      },
+      {
+        "name": "province_code",
+        "type": "String",
+        "required": false,
+        "description": "provice"
+      },
+      {
+        "name": "city_code",
+        "type": "String",
+        "required": false,
+        "description": "city"
+      }
+    ],
+    "response_demo": {
+      "code": "0",
+      "request_id": "0ba2887315178178017221014",
+      "aliexpress_ds_product_get_response": {
+        "result": {
+          "ae_item_sku_info_dtos": [
+            {
+              "tax_amount": "652",
+              "sku_attr": "73:175#Black Green;71:193#Polarized",
+              "offer_sale_price": "3.94",
+              "estimated_import_charges": "24.85",
+              "sku_id": "12000027158136202",
+              "wholesale_price_tiers": [
+                {
+                  "min_quantity": "1",
+                  "wholesale_price": "\"5.78\"",
+                  "discount": "0.52"
+                }
+              ],
+              "ean_code": "eanCode",
+              "limit_strategy": "create_order_fail",
+              "price_include_tax": "true",
+              "currency_code": "USD",
+              "sl_related_skuId": "12222",
+              "sku_price": "3.94",
+              "buy_amount_limit_set_by_promotion": "3",
+              "offer_bulk_sale_price": "3.74",
+              "sku_available_stock": "57",
+              "id": "73:175#Black Green;71:193#Polarized",
+              "sku_bulk_order": "10",
+              "tax_currency_code": "USD",
+              "barcode": "320325455",
+              "channel_discount_price": "2.99",
+              "ae_sku_property_dtos": [
+                {
+                  "sku_property_value": "green",
+                  "sku_image": "https://ae04.alicdn.com/kf/Hba46f8222fdf4440a271134f8ce2ca2aB.jpg",
+                  "sku_property_name": "Lenses Color",
+                  "property_value_definition_name": "Black Green",
+                  "property_value_id": "175",
+                  "sku_property_id": "73"
+                }
+              ]
+            }
+          ],
+          "ae_multimedia_info_dto": {
+            "ae_video_dtos": [
+              {
+                "media_status": "approved",
+                "media_type": "MAIN_IMAGE_VIDEO",
+                "poster_url": "https://img.alicdn.com/imgextra/i4/6000000004252/O1CN01R1TCD21hHSjEOLpKT_!!6000000004252-0-tbvideo.jpg",
+                "ali_member_id": "227887939",
+                "media_id": "296195919792",
+                "media_url": "media url"
+              }
+            ],
+            "image_urls": "https://ae04.alicdn.com/kf/H551494696f2342edbeee5d2f288f4d1cv.jpg;https://ae04.alicdn.com/kf/H847c9c1b04614adfa20f042cc4490df6S.jpg;https://ae04.alicdn.com/kf/H1936d341e4bf4773ace153b527070a07C.jpg;https://ae04.alicdn.com/kf/Hf0cc14d4cc5741dc91b6dcf90bf5553cu.jpg;https://ae04.alicdn.com/kf/H80cb5bc712984795a850e9fc3a156d9fV.jpg;https://ae04.alicdn.com/kf/H71d81f9898af4d72b3bd18f7fffeb557j.jpg"
+          },
+          "package_info_dto": {
+            "package_width": "8",
+            "package_height": "6",
+            "package_length": "18",
+            "gross_weight": "0.050",
+            "package_type": "false",
+            "product_unit": "100000015",
+            "base_unit": "2"
+          },
+          "logistics_info_dto": {
+            "delivery_time": "5",
+            "ship_to_country": "CA"
+          },
+          "product_id_converter_result": {
+            "main_product_id": "32982857990",
+            "sub_product_id": {
+              "US": 2251832796543238
+            }
+          },
+          "ae_item_base_info_dto": {
+            "gmt_create": "0",
+            "mobile_detail": "<div>This is a product</div>",
+            "subject": "FUQIAN 2022 Fashion Square Polarized Sunglasses Men Vintage Plastic Male Sun Glasses Women Stylish Black Sport Shades UV400",
+            "category_sequence": "(Beta Release) Only open to whitelist appkey",
+            "evaluation_count": "1004",
+            "sl_related_product_id": "12234444",
+            "sales_count": "1000+",
+            "product_status_type": "onSelling",
+            "avg_evaluation_rating": "4.8",
+            "gmt_modified": "0",
+            "separated_listing": "false",
+            "currency_code": "CNY",
+            "sl_product": "false",
+            "owner_member_seq_long": "227887939",
+            "category_id": "33902",
+            "product_id": "4000903675543",
+            "detail": "<div>This is a product</div>"
+          },
+          "manufacturer_info": {
+            "address": "address",
+            "phone": "phone",
+            "name": "name",
+            "country_name": "China",
+            "email": "email",
+            "phone_prefix": "86"
+          },
+          "has_whole_sale": "true",
+          "ae_item_properties": [
+            {
+              "attr_name_id": "2",
+              "attr_value_id": "110567917",
+              "attr_value_unit": "piece",
+              "attr_name": "Brand Name",
+              "attr_value_start": "1",
+              "attr_value_end": "10",
+              "attr_value": "FUQIAN"
+            }
+          ],
+          "ae_store_info": {
+            "store_id": "4874072",
+            "shipping_speed_rating": "4.7",
+            "communication_rating": "4.7",
+            "store_name": "FUQIAN Eyewear Store",
+            "store_country_code": "CN",
+            "item_as_described_rating": "4.7"
+          }
+        },
+        "rsp_code": "200",
+        "rsp_msg": "Call succeeds"
+      }
+    },
+    "errors": [
+      {
+        "code": "Item is not allowed to this country",
+        "message": "Item is not allowed to this country",
+        "solution": "The product is prohibited from sale in this country. Please change the country or product."
+      },
+      {
+        "code": "ITEM_ID_NOT_FOUND",
+        "message": "ITEM_ID_NOT_FOUND",
+        "solution": "The product itemid is wrong, please check the itemid"
+      },
+      {
+        "code": "System Error",
+        "message": "System Error",
+        "solution": "System error,Need to contact technical support"
+      }
+    ]
+  },
+  {
+    "api": "aliexpress.ds.search.event.report",
+    "description": "Used for report business event to help analysis out-site business CR. Will use AI to analysis the reported data and help you optimize your business ",
+    "parameters": [
+      {
+        "name": "report_text",
+        "type": "String",
+        "required": true,
+        "description": "out site event, for business analysis"
+      }
+    ],
+    "response_demo": {
+      "code": "0",
+      "request_id": "0ba2887315178178017221014",
+      "aliexpress_ds_search_event_report_response": {
+        "msg": "msg",
+        "code": "code",
+        "data": "data"
+      }
+    },
+    "errors": []
+  },
+  {
+    "api": "aliexpress.ds.text.search",
+    "description": "text search for ds",
+    "parameters": [
+      {
+        "name": "keyWord",
+        "type": "String",
+        "required": false,
+        "description": "query word"
+      },
+      {
+        "name": "local",
+        "type": "String",
+        "required": true,
+        "description": "lang: en_US"
+      },
+      {
+        "name": "countryCode",
+        "type": "String",
+        "required": true,
+        "description": "ship to country"
+      },
+      {
+        "name": "categoryId",
+        "type": "Number",
+        "required": false,
+        "description": "categoryId"
+      },
+      {
+        "name": "sortBy",
+        "type": "String",
+        "required": false,
+        "description": "accept value: min_price,asc min_price,desc orders,asc orders,desc comments,asc comments,desc"
+      },
+      {
+        "name": "pageSize",
+        "type": "Number",
+        "required": false,
+        "description": "page size"
+      },
+      {
+        "name": "pageIndex",
+        "type": "Number",
+        "required": false,
+        "description": "page index"
+      },
+      {
+        "name": "currency",
+        "type": "String",
+        "required": true,
+        "description": "currency"
+      },
+      {
+        "name": "searchExtend",
+        "type": "Object[]",
+        "required": false,
+        "description": "search extend"
+      },
+      {
+        "name": "selectionName",
+        "type": "String",
+        "required": false,
+        "description": "text search within specific selection"
+      }
+    ],
+    "response_demo": {
+      "code": "0",
+      "aliexpress_ds_text_search_response": {
+        "msg": "message",
+        "code": "code",
+        "data": {
+          "pageIndex": "pageIndex",
+          "pageSize": "pageSize",
+          "totalCount": "totalCount",
+          "products": [
+            {
+              "productVideoUrl": "productVideoUrl",
+              "originalPrice": "12.73",
+              "originalPriceCurrency": "USD",
+              "salePrice": "6.62",
+              "discount": "48%",
+              "itemMainPic": "itemMainPic",
+              "title": "title",
+              "type": "search",
+              "originalPriceFormat": "originalPriceFormat",
+              "score": "score",
+              "itemId": "itemId",
+              "targetSalePrice": "6.62",
+              "cateId": "cateId",
+              "targetOriginalPriceCurrency": "USD",
+              "originMinPrice": "originMinPrice",
+              "evaluateRate": "97.8%",
+              "salePriceFormat": "salePriceFormat",
+              "orders": "orders",
+              "targetOriginalPrice": "12.73",
+              "itemUrl": "itemUrl",
+              "salePriceCurrency": "USD"
+            }
+          ]
+        }
+      },
+      "request_id": "0ba2887315178178017221014"
+    },
+    "errors": [
+      {
+        "code": "IllegalAccessToken",
+        "message": "IllegalAccessToken",
+        "solution": "AccessToken error, please check the accessToken"
+      }
+    ]
+  }
+]

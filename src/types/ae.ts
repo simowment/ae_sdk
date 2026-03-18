@@ -56,6 +56,24 @@ import type {
   DS_Categories_Result,
   DS_Freight_Calculation_Params,
   DS_Freight_Calculation_Result,
+  DS_Freight_Query_Params,
+  DS_Freight_Query_Result,
+  DS_Order_Tracking_Get_Params,
+  DS_Order_Tracking_Get_Result,
+  DS_Feed_Itemids_Get_Params,
+  DS_Feed_Itemids_Get_Result,
+  DS_Image_SearchV2_Params,
+  DS_Image_SearchV2_Result,
+  DS_Member_Benefit_Get_Params,
+  DS_Member_Benefit_Get_Result,
+  DS_Product_Specialinfo_Get_Params,
+  DS_Product_Specialinfo_Get_Result,
+  DS_Product_Wholesale_Get_Params,
+  DS_Product_Wholesale_Get_Result,
+  DS_Search_Event_Report_Params,
+  DS_Search_Event_Report_Result,
+  DS_Text_Search_Params,
+  DS_Text_Search_Result,
 } from ".";
 
 export type AE_API_NAMES =
@@ -76,7 +94,16 @@ export type DS_API_NAMES =
   | "aliexpress.ds.category.get"
   | "aliexpress.ds.commissionorder.listbyindex"
   | "aliexpress.ds.member.orderdata.submit"
-  | "aliexpress.ds.product.get";
+  | "aliexpress.ds.product.get"
+  | "aliexpress.ds.freight.query"
+  | "aliexpress.ds.order.tracking.get"
+  | "aliexpress.ds.feed.itemids.get"
+  | "aliexpress.ds.image.searchV2"
+  | "aliexpress.ds.member.benefit.get"
+  | "aliexpress.ds.product.specialinfo.get"
+  | "aliexpress.ds.product.wholesale.get"
+  | "aliexpress.ds.search.event.report"
+  | "aliexpress.ds.text.search";
 
 export type AFFILIATE_API_NAMES =
   | "aliexpress.affiliate.link.generate"
@@ -231,6 +258,60 @@ export type AliexpressMethod<T extends AE_API_NAMES> =
         method: T;
         params: DS_Product_Params;
         result: DS_Product_Result;
+      }
+    : T extends "aliexpress.ds.freight.query"
+    ? {
+        method: T;
+        params: DS_Freight_Query_Params;
+        result: DS_Freight_Query_Result;
+      }
+    : T extends "aliexpress.ds.order.tracking.get"
+    ? {
+        method: T;
+        params: DS_Order_Tracking_Get_Params;
+        result: DS_Order_Tracking_Get_Result;
+      }
+    : T extends "aliexpress.ds.feed.itemids.get"
+    ? {
+        method: T;
+        params: DS_Feed_Itemids_Get_Params;
+        result: DS_Feed_Itemids_Get_Result;
+      }
+    : T extends "aliexpress.ds.image.searchV2"
+    ? {
+        method: T;
+        params: DS_Image_SearchV2_Params;
+        result: DS_Image_SearchV2_Result;
+      }
+    : T extends "aliexpress.ds.member.benefit.get"
+    ? {
+        method: T;
+        params: DS_Member_Benefit_Get_Params;
+        result: DS_Member_Benefit_Get_Result;
+      }
+    : T extends "aliexpress.ds.product.specialinfo.get"
+    ? {
+        method: T;
+        params: DS_Product_Specialinfo_Get_Params;
+        result: DS_Product_Specialinfo_Get_Result;
+      }
+    : T extends "aliexpress.ds.product.wholesale.get"
+    ? {
+        method: T;
+        params: DS_Product_Wholesale_Get_Params;
+        result: DS_Product_Wholesale_Get_Result;
+      }
+    : T extends "aliexpress.ds.search.event.report"
+    ? {
+        method: T;
+        params: DS_Search_Event_Report_Params;
+        result: DS_Search_Event_Report_Result;
+      }
+    : T extends "aliexpress.ds.text.search"
+    ? {
+        method: T;
+        params: DS_Text_Search_Params;
+        result: DS_Text_Search_Result;
       }
     : T extends "aliexpress.affiliate.link.generate"
     ? {

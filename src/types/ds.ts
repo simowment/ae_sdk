@@ -681,3 +681,257 @@ export interface DS_Categories_Result {
     };
   };
 }
+
+/**
+ * DROPSHIPPER API ADDITIONS
+ */
+
+export interface DS_Freight_Query_Params {
+  queryDeliveryReq: string | object;
+}
+export interface DS_Delivery_Option {
+  code: string;
+  shipping_fee_currency: string;
+  free_shipping: string;
+  mayHavePFS: string;
+  guaranteed_delivery_days: string;
+  max_delivery_days: string;
+  tracking: string;
+  shipping_fee_format: string;
+  free_shipping_threshold: string;
+  estimated_delivery_time: string;
+  delivery_date_desc: string;
+  company: string;
+  ship_from_country: string;
+  min_delivery_days: string;
+  available_stock: string;
+  ddpIncludeVATTax: string;
+  shipping_fee_cent: string;
+}
+export interface DS_Freight_Query_Result {
+  aliexpress_ds_freight_query_response: {
+    result: {
+      msg: string;
+      code: string;
+      success: string;
+      delivery_options: DS_Delivery_Option[];
+    };
+  };
+}
+
+export interface DS_Order_Tracking_Get_Params {
+  ae_order_id: string;
+  language: string;
+}
+export interface DS_Order_Tracking_Event {
+  time_stamp: string;
+  tracking_detail_desc: string;
+  tracking_name: string;
+}
+export interface DS_Order_Tracking_PackageItem {
+  sku_desc: string;
+  quantity: string;
+  item_id: string;
+  sku_id: string;
+  item_title: string;
+}
+export interface DS_Order_Tracking_Line {
+  detail_node_list: DS_Order_Tracking_Event[];
+  package_item_list: DS_Order_Tracking_PackageItem[];
+  carrier_name: string;
+  mail_no: string;
+  eta_time_stamps: string;
+}
+export interface DS_Order_Tracking_Get_Result {
+  aliexpress_ds_order_tracking_get_response: {
+    result: {
+      msg: string;
+      ret: string;
+      code: string;
+      data: {
+        tracking_detail_line_list: DS_Order_Tracking_Line[];
+      };
+    };
+  };
+}
+
+export interface DS_Feed_Itemids_Get_Params {
+  page_size?: number;
+  category_id?: string;
+  feed_name: string;
+  search_id?: string;
+}
+export interface DS_Feed_Itemids_Get_Result {
+  aliexpress_ds_feed_itemids_get_response: {
+    result: {
+      total: string;
+      products: any[];
+      search_id: string;
+    };
+    ret: string;
+    rsp_code: string;
+    rsp_msg: string;
+  };
+}
+
+export interface DS_Image_SearchV2_Params {
+  param0?: string | object;
+}
+export interface DS_Image_SearchV2_Product {
+  latest_volume: string;
+  ship_from: string;
+  product_detail_url: string;
+  target_sale_price: string;
+  second_level_category_id: string;
+  discount: string;
+  product_main_image_url: string;
+  evaluate_rate: string;
+  first_level_category_id: string;
+  target_sale_price_currency: string;
+  product_title: string;
+  shop_id: string;
+  second_level_category_title: string;
+  target_original_price_currency: string;
+  product_id: string;
+  first_level_category_title: string;
+  similarity_score: string;
+  target_original_price: string;
+}
+export interface DS_Image_SearchV2_Result {
+  aliexpress_ds_image_searchV2_response: {
+    result: {
+      ret: string;
+      code: string;
+      data: DS_Image_SearchV2_Product[];
+      messages: string;
+      empty: string;
+    };
+  };
+}
+
+export interface DS_Member_Benefit_Get_Params {}
+export interface DS_Member_Benefit_Item {
+  canApply: string;
+  code: string;
+  title: string;
+  canBenefit: string;
+}
+export interface DS_Member_Benefit_Get_Result {
+  aliexpress_ds_member_benefit_get_response: {
+    result: DS_Member_Benefit_Item[];
+    rsp_code: string;
+    rsp_msg: string;
+  };
+}
+
+export interface DS_Product_Specialinfo_Get_Params {
+  itemId: number;
+  countryCodes: string | string[];
+  appKey: string;
+}
+export interface DS_Product_Qualification {
+  value_type: string;
+  name: string;
+  value: string;
+  key: string;
+}
+export interface DS_Product_Specialinfo_Get_Result {
+  aliexpress_ds_product_specialinfo_get_response: {
+    result: {
+      ret: string;
+      code: string;
+      data: {
+        item_qualification_list: DS_Product_Qualification[];
+        product_id: string;
+      };
+      err_message: string;
+    };
+  };
+}
+
+export interface DS_Product_Wholesale_Get_Params {
+  ship_to_country: string;
+  product_id: number;
+  target_currency?: string;
+  target_language?: string;
+  remove_personal_benefit?: boolean;
+}
+export interface DS_Wholesale_Price_Tier {
+  min_quantity: string;
+  wholesale_price: string;
+  discount: string;
+}
+export interface DS_Product_Wholesale_SKU_Variation extends DS_Product_SKU_Variation {
+  wholesale_price_tiers?: DS_Wholesale_Price_Tier[];
+}
+export interface DS_Product_Wholesale extends Omit<DS_Product, 'ae_item_sku_info_dtos'> {
+  ae_item_sku_info_dtos: DS_Product_Wholesale_SKU_Variation[] | { ae_item_sku_info_d_t_o: DS_Product_Wholesale_SKU_Variation[] };
+  has_whole_sale: string;
+}
+export interface DS_Product_Wholesale_Get_Result {
+  aliexpress_ds_product_wholesale_get_response: {
+    result: DS_Product_Wholesale;
+    rsp_code: string;
+    rsp_msg: string;
+  };
+}
+
+export interface DS_Search_Event_Report_Params {
+  report_text: string;
+}
+export interface DS_Search_Event_Report_Result {
+  aliexpress_ds_search_event_report_response: {
+    msg: string;
+    code: string;
+    data: string;
+  };
+}
+
+export interface DS_Text_Search_Params {
+  keyWord?: string;
+  local: string;
+  countryCode: string;
+  categoryId?: number;
+  sortBy?: string;
+  pageSize?: number;
+  pageIndex?: number;
+  currency: string;
+  searchExtend?: any;
+  selectionName?: string;
+}
+export interface DS_Text_Search_Product {
+  productVideoUrl: string;
+  originalPrice: string;
+  originalPriceCurrency: string;
+  salePrice: string;
+  discount: string;
+  itemMainPic: string;
+  title: string;
+  type: string;
+  originalPriceFormat: string;
+  score: string;
+  itemId: string;
+  targetSalePrice: string;
+  cateId: string;
+  targetOriginalPriceCurrency: string;
+  originMinPrice: string;
+  evaluateRate: string;
+  salePriceFormat: string;
+  orders: string;
+  targetOriginalPrice: string;
+  itemUrl: string;
+  salePriceCurrency: string;
+}
+export interface DS_Text_Search_Result {
+  aliexpress_ds_text_search_response: {
+    msg: string;
+    code: string;
+    data: {
+      pageIndex: string;
+      pageSize: string;
+      totalCount: string;
+      products: DS_Text_Search_Product[];
+    };
+  };
+}
+
