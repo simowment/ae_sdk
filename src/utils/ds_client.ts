@@ -243,16 +243,11 @@ export class DropshipperClient extends AESystemClient {
       }),
     });
 
-    if (
-      response.ok &&
-      response.data.aliexpress_trade_buy_placeorder_response.result.is_success
-    ) {
-      response.data.aliexpress_trade_buy_placeorder_response.result.order_list =
-        extractNestedProperty(
-          response.data.aliexpress_trade_buy_placeorder_response.result
-            .order_list,
-          "number",
-        ) ?? [];
+    if (response.ok) {
+      const result = response.data.aliexpress_ds_order_create_response?.result;
+      if (result?.is_success) {
+        result.order_list = extractNestedProperty(result.order_list, "number") ?? [];
+      }
     }
 
     return response;
@@ -272,15 +267,11 @@ export class DropshipperClient extends AESystemClient {
     let response = await this.execute("aliexpress.trade.ds.order.get", args);
 
     if (response.ok) {
-      response.data.aliexpress_trade_ds_order_get_response =
-        extractNestedProperty(
-          response.data,
-          "aliexpress_ds_trade_order_get_response",
-        ) || response.data.aliexpress_trade_ds_order_get_response;
-
-      // @ts-ignore
-      if (response.data.aliexpress_ds_trade_order_get_response) {
-        delete (response.data as any).aliexpress_ds_trade_order_get_response;
+      // Normalize alternate response key returned by some API versions
+      const raw = response.data as any;
+      if (raw.aliexpress_ds_trade_order_get_response) {
+        response.data.aliexpress_trade_ds_order_get_response = raw.aliexpress_ds_trade_order_get_response;
+        delete raw.aliexpress_ds_trade_order_get_response;
       }
 
       let data = response.data.aliexpress_trade_ds_order_get_response.result;
@@ -316,9 +307,8 @@ export class DropshipperClient extends AESystemClient {
   async queryFeaturedPromos(args: DS_Feedname_Params) {
     let response = await this.execute("aliexpress.ds.feedname.get", args);
     if (response.ok) {
-      let data =
-        response.data.aliexpress_ds_feedname_get_response.result.promos;
-      data = extractNestedArray(data, "promo");
+      const result = response.data.aliexpress_ds_feedname_get_response.result;
+      result.promos = extractNestedArray(result.promos, "promo");
     }
     return response;
   }
@@ -336,10 +326,8 @@ export class DropshipperClient extends AESystemClient {
   async getCategories(args: Affiliate_Categories_Params) {
     let response = await this.execute("aliexpress.ds.category.get", args);
     if (response.ok) {
-      let data =
-        response.data.aliexpress_ds_category_get_response.resp_result.result
-          .categories;
-      data = extractNestedArray(data, "category");
+      const result = response.data.aliexpress_ds_category_get_response.resp_result.result;
+      result.categories = extractNestedArray(result.categories, "category");
     }
     return response;
   }

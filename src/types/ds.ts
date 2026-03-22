@@ -106,6 +106,8 @@ export interface DS_Product_Base_Info {
   owner_member_seq_long: number;
   evaluation_count: string;
   avg_evaluation_rating: string;
+  /** Total sales count e.g. "1000+" */
+  sales_count?: string;
   detail: string;
   mobile_detail: string;
 }
@@ -152,19 +154,33 @@ export interface DS_Product_Multimedia {
 }
 
 export interface DS_Product_SKU_Variation {
-  sku_stock: boolean;
+  /** Whether this SKU is in stock. API returns boolean or string "true"/"false". */
+  sku_stock: boolean | string;
   sku_price: string;
   sku_code: string;
-  ipm_sku_stock: number;
+  /** Numeric stock count. API may return a number or string. */
+  ipm_sku_stock: number | string;
+  /** SKU attribute string e.g. "73:175#Black Green;71:193#Polarized". Same as sku_attr. */
   id: string;
+  /** Numeric SKU ID e.g. "12000027158136202" */
+  sku_id?: string;
+  /** SKU attribute string e.g. "73:175#Black Green;71:193#Polarized" */
+  sku_attr?: string;
   currency_code: AE_Currency;
-  aeop_s_k_u_propertys: DS_Product_SKU_Properties[];
+  /** Properties in ds.product.get responses */
+  aeop_s_k_u_propertys?: DS_Product_SKU_Properties[];
+  /** Properties in ds.product.wholesale.get responses */
+  ae_sku_property_dtos?: DS_Product_SKU_Properties[];
   barcode: string;
+  ean_code?: string;
   offer_sale_price: string;
   offer_bulk_sale_price: string;
   sku_bulk_order: number;
-  sku_available_stock?: number;
-  s_k_u_available_stock?: number;
+  sku_available_stock?: number | string;
+  s_k_u_available_stock?: number | string;
+  limit_strategy?: string;
+  price_include_tax?: string;
+  buy_amount_limit_set_by_promotion?: string;
 }
 
 export interface DS_Product_SKU_Properties {
@@ -321,7 +337,7 @@ export type DS_Place_Order_Error_Message =
   | "A006_INVALID_ACCOUNT_INFO";
 
 export interface DS_Place_Order_Result {
-  aliexpress_trade_buy_placeorder_response: {
+  aliexpress_ds_order_create_response: {
     result:
       | {
           error_code: DS_Place_Order_Error_Message;

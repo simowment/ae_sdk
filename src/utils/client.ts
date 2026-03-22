@@ -84,17 +84,13 @@ export class AEBaseClient implements AE_Base_Client {
       .sort(([a], [b]) => a.localeCompare(b))
       .reduce((acc, [key, value]) => acc + key + String(value), "");
 
-    console.log('[AliExpress SDK] Signature base string:', basestring);
-    console.log('[AliExpress SDK] Signing with secret:', this.app_secret.substring(0, 5) + '...');
-
     const signature = createHmac(SIGN_METHOD, this.app_secret, {
       encoding: SIGN_METHOD_ENCODING,
     })
-      .update(encodeURIComponent(basestring))
+      .update(basestring)
       .digest("hex")
       .toUpperCase();
 
-    console.log('[AliExpress SDK] Generated signature:', signature);
     return signature;
   }
 
@@ -118,20 +114,16 @@ export class AEBaseClient implements AE_Base_Client {
       : this.migrated_apis_url;
 
     if (p.method.includes("/")) {
-      // @ts-ignore
-      delete p.method;
+      delete (p as any).method;
     }
 
-    const queryParams = Object.entries(p)
+    const query = Object.entries(p)
       .filter(([_, value]) => value != null && value !== "")
       .sort(([a], [b]) => a.localeCompare(b))
-      .map(([key, value], index) => {
-        const prefix = index === 0 ? "?" : "&";
-        return `${prefix}${key}=${encodeURIComponent(String(value))}`;
-      })
-      .join("");
+      .map(([key, value]) => `${key}=${encodeURIComponent(String(value))}`)
+      .join("&");
 
-    return baseUrl + queryParams;
+    return `${baseUrl}?${query}`;
   }
 
   /**
@@ -150,40 +142,17 @@ export class AEBaseClient implements AE_Base_Client {
       fetch(this.assemble(params), { method: "POST" }),
     );
     if (fetchError) {
-      if (fetchError instanceof TypeError) {
-        return {
-          ok: false,
-          message: `Network Error: ${fetchError.message}`,
-          error: fetchError,
-        };
-      }
-      return {
-        ok: false,
-        message: `Fetch Error: ${fetchError.message}`,
-        error: fetchError,
-      };
+      const label = fetchError instanceof TypeError ? "Network" : "Fetch";
+      return { ok: false, message: `${label} Error: ${fetchError.message}`, error: fetchError };
     }
 
     if (!response?.ok)
-      return {
-        ok: false,
-        message: `HTTP Error: ${response?.status} ${response?.statusText}`,
-      };
+      return { ok: false, message: `HTTP Error: ${response?.status} ${response?.statusText}` };
 
     const [jsonError, data] = await tryFn(response?.json());
     if (jsonError) {
-      if (jsonError instanceof SyntaxError) {
-        return {
-          ok: false,
-          message: `Invalid JSON Response: ${jsonError.message}`,
-          error: jsonError,
-        };
-      }
-      return {
-        ok: false,
-        message: `JSON Parsing Error: ${jsonError.message}`,
-        error: jsonError,
-      };
+      const label = jsonError instanceof SyntaxError ? "Invalid JSON Response" : "JSON Parsing Error";
+      return { ok: false, message: `${label}: ${jsonError.message}`, error: jsonError };
     }
 
     if (data?.error_response)
@@ -229,9 +198,7 @@ export class AEBaseClient implements AE_Base_Client {
       parameters.session = this.session;
     }
     
-    console.log('[AliExpress SDK] Request parameters before signing:', JSON.stringify(parameters, null, 2));
     parameters.sign = this.sign(parameters);
-    console.log('[AliExpress SDK] Final signed parameters:', JSON.stringify({ ...parameters, sign: parameters.sign }, null, 2));
 
     return await this.call<
       AliexpressMethod<K>["params"] & PublicParams,
