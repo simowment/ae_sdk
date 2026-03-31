@@ -91,6 +91,10 @@ export interface DS_Product_Params {
   ship_to_country?: string;
   target_currency?: AE_Currency;
   target_language?: AE_Language;
+  remove_personal_benefit?: boolean;
+  biz_model?: string;
+  province_code?: string;
+  city_code?: string;
 }
 
 export interface DS_Product_Base_Info {
@@ -110,6 +114,10 @@ export interface DS_Product_Base_Info {
   sales_count?: string;
   detail: string;
   mobile_detail: string;
+  category_sequence?: string;
+  sl_related_product_id?: string;
+  separated_listing?: string;
+  sl_product?: string;
 }
 
 export interface DS_Product_Shipping_Info {
@@ -133,11 +141,12 @@ export interface DS_Product_Store_Info {
   item_as_described_rating: string;
   communication_rating: string;
   shipping_speed_rating: string;
+  store_country_code?: string;
 }
 
 export interface DS_Product_Id_Converter {
   main_product_id: number;
-  sub_product_id: string;
+  sub_product_id: Record<string, number>;
 }
 
 export interface DS_Product_Multimedia_Videos {
@@ -181,6 +190,11 @@ export interface DS_Product_SKU_Variation {
   limit_strategy?: string;
   price_include_tax?: string;
   buy_amount_limit_set_by_promotion?: string;
+  tax_amount?: string;
+  estimated_import_charges?: string;
+  sl_related_skuId?: string;
+  tax_currency_code?: AE_Currency;
+  channel_discount_price?: string;
 }
 
 export interface DS_Product_SKU_Properties {
@@ -203,6 +217,15 @@ export interface DS_Product_Attributes {
   attr_value_end?: string;
 }
 
+export interface DS_Manufacturer_Info {
+  address?: string;
+  phone?: string;
+  name?: string;
+  country_name?: string;
+  email?: string;
+  phone_prefix?: string;
+}
+
 export interface DS_Product {
   ae_item_sku_info_dtos: DS_Product_SKU_Variation[] | { ae_item_sku_info_d_t_o: DS_Product_SKU_Variation[] };
   ae_item_properties: DS_Product_Attributes[] | { ae_item_property: DS_Product_Attributes[] };
@@ -212,6 +235,8 @@ export interface DS_Product {
   logistics_info_dto: DS_Product_Shipping_Info;
   ae_store_info: DS_Product_Store_Info;
   product_id_converter_result: DS_Product_Id_Converter;
+  manufacturer_info?: DS_Manufacturer_Info;
+  has_whole_sale?: string;
 }
 
 export interface DS_Product_Result {
@@ -293,6 +318,8 @@ export interface AE_Place_Order_Payment_Params {
   };
   trade_extra_param?: {
     business_model?: "retail" | "wholesale";
+    /** Saudi Arabia national address (8 chars: 4 uppercase letters + 4 digits, e.g. "RAHA3443") */
+    nat_addr?: string;
   };
 }
 
@@ -322,6 +349,8 @@ export interface AE_Logistics_Address {
 
 export type DS_Place_Order_Error_Message =
   | "B_DROPSHIPPER_DELIVERY_ADDRESS_VALIDATE_FAIL"
+  | "B_DROPSHIPPER_DELIVERY_ADDRESS_CPF_CN_INVALID"
+  | "B_DROPSHIPPER_DELIVERY_ADDRESS_CPF_NOT_MATCH"
   | "BLACKLIST_BUYER_IN_LIST"
   | "USER_ACCOUNT_DISABLED"
   | "PRICE_PAY_CURRENCY_ERROR"
@@ -369,6 +398,17 @@ export interface DS_Product_Info {
   product_price: DS_Price;
   product_name: string;
   product_count: number;
+  sku_id?: string;
+  shipping_discount_fee?: DS_Price;
+  sale_fee?: DS_Price;
+  end_reason?: string;
+  actual_fee?: DS_Price;
+  sale_discount_fee?: DS_Price;
+  price_include_tax?: string;
+  shipping_fee?: DS_Price;
+  actual_shipping_fee?: DS_Price;
+  already_include_tax?: string;
+  actual_tax_fee?: DS_Price;
 }
 
 export interface DS_Logistics_Info {
@@ -390,6 +430,9 @@ export interface DS_Get_Order {
   child_order_list: DS_Product_Info[];
   logistics_info_list: DS_Logistics_Info[];
   store_info: DS_Store_Info;
+  pay_timeout_second?: string;
+  user_order_amount?: DS_Price;
+  order_paidtime_string?: string;
 }
 
 export interface DS_Get_Order_Result {

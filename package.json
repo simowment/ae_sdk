@@ -9,6 +9,8 @@
   "scripts": {
     "dev": "vitest",
     "test": "vitest run",
+    "test:live": "vitest run src/live.test.ts",
+    "auth": "node scripts/auth.mjs",
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "lint": "tsc",
     "ci": "pnpm run lint && pnpm run test && pnpm run build",

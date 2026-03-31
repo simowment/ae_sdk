@@ -31,31 +31,17 @@ import type {
   Affiliate_Products_Result,
   Affiliate_Smart_Match_Products_Params,
   Affiliate_Smart_Match_Products_Result,
-  DS_Add_Info_Params,
-  DS_Add_Info_Result,
   DS_Feedname_Params,
   DS_Feedname_Result,
-  DS_Image_Search_Params,
-  DS_Image_Search_Result,
   DS_Get_Order_Params,
   DS_Get_Order_Result,
   DS_Place_Order_Params,
   DS_Place_Order_Result,
-  DS_Order_Submit_Params,
-  DS_Order_Submit_Result,
-  DS_Orders_ByIdx_Params,
-  DS_Orders_ByIdx_Result,
   DS_Product_Params,
   DS_Product_Result,
-  DS_Recommended_Products_Params,
-  DS_Recommended_Products_Result,
   DS_Shipping_Info_Params,
   DS_Shipping_Info_Result,
-  DS_Tracking_Info_Params,
-  DS_Tracking_Info_Result,
   DS_Categories_Result,
-  DS_Freight_Calculation_Params,
-  DS_Freight_Calculation_Result,
   DS_Freight_Query_Params,
   DS_Freight_Query_Result,
   DS_Order_Tracking_Get_Params,
@@ -82,18 +68,11 @@ export type AE_API_NAMES =
   | SYSTEM_API_NAMES;
 
 export type DS_API_NAMES =
-  | "aliexpress.logistics.buyer.freight.get"
   | "aliexpress.logistics.buyer.freight.calculate"
-  | "aliexpress.logistics.ds.trackinginfo.query"
-  | "aliexpress.ds.add.info"
-  | "aliexpress.ds.image.search"
-  | "aliexpress.ds.recommend.feed.get"
   | "aliexpress.ds.order.create"
   | "aliexpress.trade.ds.order.get"
   | "aliexpress.ds.feedname.get"
   | "aliexpress.ds.category.get"
-  | "aliexpress.ds.commissionorder.listbyindex"
-  | "aliexpress.ds.member.orderdata.submit"
   | "aliexpress.ds.product.get"
   | "aliexpress.ds.freight.query"
   | "aliexpress.ds.order.tracking.get"
@@ -189,37 +168,11 @@ export type AliexpressMethod<T extends AE_API_NAMES> =
         params: AES_Refresh_Token_Params;
         result: AES_Refresh_Token_Result;
       }
-    : T extends "aliexpress.logistics.buyer.freight.get"
-    ? {
-        method: T;
-        params: DS_Freight_Calculation_Params;
-        result: DS_Freight_Calculation_Result;
-      }
     : T extends "aliexpress.logistics.buyer.freight.calculate"
     ? {
         method: T;
         params: DS_Shipping_Info_Params;
         result: DS_Shipping_Info_Result;
-      }
-    : T extends "aliexpress.logistics.ds.trackinginfo.query"
-    ? {
-        method: T;
-        params: DS_Tracking_Info_Params;
-        result: DS_Tracking_Info_Result;
-      }
-    : T extends "aliexpress.ds.add.info"
-    ? { method: T; params: DS_Add_Info_Params; result: DS_Add_Info_Result }
-    : T extends "aliexpress.ds.image.search"
-    ? {
-        method: T;
-        params: DS_Image_Search_Params;
-        result: DS_Image_Search_Result;
-      }
-    : T extends "aliexpress.ds.recommend.feed.get"
-    ? {
-        method: T;
-        params: DS_Recommended_Products_Params;
-        result: DS_Recommended_Products_Result;
       }
     : T extends "aliexpress.ds.order.create"
     ? {
@@ -240,18 +193,6 @@ export type AliexpressMethod<T extends AE_API_NAMES> =
         method: T;
         params: Affiliate_Categories_Params;
         result: DS_Categories_Result;
-      }
-    : T extends "aliexpress.ds.commissionorder.listbyindex"
-    ? {
-        method: T;
-        params: DS_Orders_ByIdx_Params;
-        result: DS_Orders_ByIdx_Result;
-      }
-    : T extends "aliexpress.ds.member.orderdata.submit"
-    ? {
-        method: T;
-        params: DS_Order_Submit_Params;
-        result: DS_Order_Submit_Result;
       }
     : T extends "aliexpress.ds.product.get"
     ? {

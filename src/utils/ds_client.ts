@@ -12,23 +12,16 @@
 import {
   extractNestedArray,
   extractNestedProperty,
-  parseAffiliateProducts,
 } from ".";
 import type {
   AE_Base_Client,
   AE_Logistics_Address,
   AE_Product_Item,
-  DS_Recommended_Products_Params,
   DS_Product_Params,
   DS_Shipping_Info_Arguments,
-  DS_Tracking_Info_Params,
   DS_Get_Order_Params,
   DS_Feedname_Params,
   Affiliate_Categories_Params,
-  DS_Orders_ByIdx_Params,
-  DS_Order_Submit_Params,
-  DS_Add_Info_Arguments,
-  DS_Freight_Calculation_Arguments,
   AE_Place_Order_Payment_Params,
   DS_Freight_Query_Params,
   DS_Order_Tracking_Get_Params,
@@ -55,43 +48,6 @@ import { AESystemClient } from "./system_client";
 export class DropshipperClient extends AESystemClient {
   constructor(init: AE_Base_Client) {
     super(init);
-  }
-
-  /**
-   * @deprecated - this was removed from the API
-   *
-   * Retrieves freight information for products
-   *
-   * AE API endpoint: `aliexpress.logistics.buyer.freight.get`
-   *
-   * @param args Freight calculation parameters including product and shipping details
-   * @returns API response with freight calculation results
-   * @link https://openservice.aliexpress.com/doc/api.htm#/api?cid=21038&path=aliexpress.logistics.buyer.freight.get&methodType=GET/POST
-   */
-  async freightInfo(args: DS_Freight_Calculation_Arguments) {
-    let response = await this.execute(
-      "aliexpress.logistics.buyer.freight.get",
-      {
-        aeopFreightCalculateForBuyerDTO: JSON.stringify(args),
-      },
-    );
-
-    if (response.ok) {
-      const data =
-        response.data.aliexpress_logistics_buyer_freight_get_response;
-      if (
-        data.result.success &&
-        data.result.aeop_freight_calculate_result_for_buyer_dtolist
-      ) {
-        data.result.aeop_freight_calculate_result_for_buyer_dtolist =
-          extractNestedArray(
-            data.result.aeop_freight_calculate_result_for_buyer_dtolist,
-            "aeop_freight_calculate_result_for_buyer_d_t_o",
-          );
-      }
-    }
-
-    return response;
   }
 
   /**
@@ -127,89 +83,6 @@ export class DropshipperClient extends AESystemClient {
       }
     }
 
-    return response;
-  }
-
-  /**
-   * @deprecated - this was removed from the API
-   *
-   * Retrieves tracking information for an order
-   *
-   * Gets detailed tracking events for a shipment using the order ID
-   * and logistics tracking number.
-   *
-   * @param args Tracking information parameters including order ID and tracking number
-   * @returns API response with tracking details and events
-   * @link https://open.aliexpress.com/doc/api.htm#/api?cid=21038&path=aliexpress.logistics.ds.trackinginfo.query&methodType=GET/POST
-   */
-  async trackingInfo(args: DS_Tracking_Info_Params) {
-    let response = await this.execute(
-      "aliexpress.logistics.ds.trackinginfo.query",
-      args,
-    );
-
-    if (
-      response.ok &&
-      response.data.aliexpress_logistics_ds_trackinginfo_query_response
-        .result_success
-    ) {
-      const data =
-        response.data.aliexpress_logistics_ds_trackinginfo_query_response;
-      data.details = extractNestedProperty(data.details, "details") ?? [];
-    }
-
-    return response;
-  }
-
-  // TODO : add new tracking info API route
-  // https://openservice.aliexpress.com/doc/doc.htm#/?docId=1660
-
-  /**
-   * @deprecated - this was removed from the API
-   *
-   * Adds dropshipping information to an order
-   *
-   * @param args Dropshipping information parameters
-   * @returns API response with operation result
-   * @link https://open.aliexpress.com/doc/api.htm#/api?cid=21038&path=aliexpress.ds.add.info&methodType=GET/POST
-   */
-  async addDropshippingInfo(args: DS_Add_Info_Arguments) {
-    return await this.execute("aliexpress.ds.add.info", {
-      param0: JSON.stringify(args),
-    });
-  }
-
-  /**
-   * @link https://open.aliexpress.com/doc/api.htm#/api?cid=21038&path=aliexpress.ds.image.search&methodType=GET/POST
-   */
-  // TODO
-  // async searchByImage(args: DS_Image_Search_Params) {
-  //   let response = await this.execute("aliexpress.ds.image.search", args);
-  //   if (response.ok) {
-  //     let data = response.data.aliexpress_ds_image_search_response.data;
-  //     data = parseAffiliateProducts(data);
-  //   }
-  //   return response;
-  // }
-
-  /**
-   * @deprecated - this was removed from the API
-   *
-   * Retrieves recommended products from featured promotions
-   *
-   * @param args Parameters for filtering and pagination of recommended products
-   * @returns API response with recommended products
-   * @link https://open.aliexpress.com/doc/api.htm#/api?cid=21038&path=aliexpress.ds.recommend.feed.get&methodType=GET/POST
-   */
-  async queryfeaturedPromoProducts(args: DS_Recommended_Products_Params) {
-    let response = await this.execute("aliexpress.ds.recommend.feed.get", args);
-    if (response.ok) {
-      response.data.aliexpress_ds_recommend_feed_get_response.resp_result.result =
-        parseAffiliateProducts(
-          response.data.aliexpress_ds_recommend_feed_get_response.resp_result
-            .result,
-        );
-    }
     return response;
   }
 
@@ -307,8 +180,8 @@ export class DropshipperClient extends AESystemClient {
   async queryFeaturedPromos(args: DS_Feedname_Params) {
     let response = await this.execute("aliexpress.ds.feedname.get", args);
     if (response.ok) {
-      const result = response.data.aliexpress_ds_feedname_get_response.result;
-      result.promos = extractNestedArray(result.promos, "promo");
+      const result = response.data.aliexpress_ds_feedname_get_response?.result;
+      if (result) result.promos = extractNestedArray(result.promos, "promo");
     }
     return response;
   }
@@ -330,41 +203,6 @@ export class DropshipperClient extends AESystemClient {
       result.categories = extractNestedArray(result.categories, "category");
     }
     return response;
-  }
-
-  /**
-   * @deprecated - this was removed from the API
-   *
-   * Retrieves a list of orders by index
-   *
-   * Gets paginated orders based on specified filters and sorting parameters.
-   * Useful for building order management interfaces.
-   *
-   * @param args Parameters for filtering and pagination of orders
-   * @returns API response with list of orders
-   * @link https://open.aliexpress.com/doc/api.htm#/api?cid=21038&path=aliexpress.ds.commissionorder.listbyindex&methodType=GET/POST
-   */
-  async ordersListByIndex(args: DS_Orders_ByIdx_Params) {
-    return await this.execute(
-      "aliexpress.ds.commissionorder.listbyindex",
-      args,
-    );
-  }
-
-  /**
-   * @deprecated - this was removed from the API
-   *
-   * Submits order data to AliExpress
-   *
-   * Submits additional information about orders, such as tracking data
-   * or customer information for dropshipping purposes.
-   *
-   * @param args Order data to submit
-   * @returns API response with submission result
-   * @link https://open.aliexpress.com/doc/api.htm#/api?cid=21038&path=aliexpress.ds.member.orderdata.submit&methodType=GET/POST
-   */
-  async submitOrderData(args: DS_Order_Submit_Params) {
-    return await this.execute("aliexpress.ds.member.orderdata.submit", args);
   }
 
   /**
@@ -505,7 +343,41 @@ export class DropshipperClient extends AESystemClient {
    * @link https://openservice.aliexpress.com/doc/api.htm#/api?cid=21038&path=aliexpress.ds.product.wholesale.get&methodType=GET/POST
    */
   async getProductWholesale(args: DS_Product_Wholesale_Get_Params) {
-    return await this.execute("aliexpress.ds.product.wholesale.get", args as any);
+    let response = await this.execute("aliexpress.ds.product.wholesale.get", args);
+    if (response.ok) {
+      const result = response.data.aliexpress_ds_product_wholesale_get_response?.result;
+      if (!result) return response;
+
+      result.ae_item_properties = extractNestedArray(
+        result.ae_item_properties,
+        "ae_item_property",
+      );
+
+      result.ae_item_sku_info_dtos = extractNestedArray(
+        result.ae_item_sku_info_dtos,
+        "ae_item_sku_info_d_t_o",
+      );
+
+      (result.ae_item_sku_info_dtos as any[]).forEach((sku) => {
+        if (sku.ae_sku_property_dtos) {
+          sku.aeop_s_k_u_propertys = sku.ae_sku_property_dtos;
+          delete sku.ae_sku_property_dtos;
+        }
+
+        sku.aeop_s_k_u_propertys = extractNestedArray(
+          sku.aeop_s_k_u_propertys,
+          "ae_sku_property_d_t_o",
+        );
+      });
+
+      if (result.ae_multimedia_info_dto?.ae_video_dtos) {
+        result.ae_multimedia_info_dto.ae_video_dtos = extractNestedArray(
+          result.ae_multimedia_info_dto.ae_video_dtos,
+          "ae_video_d_t_o",
+        );
+      }
+    }
+    return response;
   }
 
   /**
