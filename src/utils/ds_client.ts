@@ -18,6 +18,8 @@ import type {
   AE_Logistics_Address,
   AE_Product_Item,
   DS_Product_Params,
+  DS_Product_SKU_Variation,
+  DS_Product_Wholesale_SKU_Variation,
   DS_Shipping_Info_Arguments,
   DS_Get_Order_Params,
   DS_Feedname_Params,
@@ -141,10 +143,12 @@ export class DropshipperClient extends AESystemClient {
 
     if (response.ok) {
       // Normalize alternate response key returned by some API versions
-      const raw = response.data as any;
-      if (raw.aliexpress_ds_trade_order_get_response) {
-        response.data.aliexpress_trade_ds_order_get_response = raw.aliexpress_ds_trade_order_get_response;
-        delete raw.aliexpress_ds_trade_order_get_response;
+      const raw = response.data as unknown as Record<string, unknown>;
+      const altKey = "aliexpress_ds_trade_order_get_response";
+      if (raw[altKey]) {
+        response.data.aliexpress_trade_ds_order_get_response =
+          raw[altKey] as typeof response.data.aliexpress_trade_ds_order_get_response;
+        delete raw[altKey];
       }
 
       let data = response.data.aliexpress_trade_ds_order_get_response.result;
@@ -237,10 +241,11 @@ export class DropshipperClient extends AESystemClient {
         "ae_item_sku_info_d_t_o",
       );
 
-      result.ae_item_sku_info_dtos.forEach((sku) => {
-        if ((sku as any).ae_sku_property_dtos) {
-          sku.aeop_s_k_u_propertys = (sku as any).ae_sku_property_dtos;
-          delete (sku as any).ae_sku_property_dtos;
+      const skus = result.ae_item_sku_info_dtos as DS_Product_SKU_Variation[];
+      skus.forEach((sku) => {
+        if (sku.ae_sku_property_dtos) {
+          sku.aeop_s_k_u_propertys = sku.ae_sku_property_dtos;
+          delete sku.ae_sku_property_dtos;
         }
 
         sku.aeop_s_k_u_propertys = extractNestedArray(
@@ -267,11 +272,10 @@ export class DropshipperClient extends AESystemClient {
    * @link https://openservice.aliexpress.com/doc/api.htm#/api?cid=21038&path=aliexpress.ds.freight.query&methodType=GET/POST
    */
   async queryFreight(args: DS_Freight_Query_Params) {
-    let payload = { ...args };
-    if (typeof payload.queryDeliveryReq === "object") {
-      payload.queryDeliveryReq = JSON.stringify(payload.queryDeliveryReq);
-    }
-    return await this.execute("aliexpress.ds.freight.query", payload as any);
+    const queryDeliveryReq = typeof args.queryDeliveryReq === "object"
+      ? JSON.stringify(args.queryDeliveryReq)
+      : args.queryDeliveryReq;
+    return await this.execute("aliexpress.ds.freight.query", { queryDeliveryReq });
   }
 
   /**
@@ -303,11 +307,10 @@ export class DropshipperClient extends AESystemClient {
    * @returns API response
    */
   async searchByImageV2(args: DS_Image_SearchV2_Params) {
-    let payload = { ...args };
-    if (typeof payload.param0 === "object") {
-      payload.param0 = JSON.stringify(payload.param0);
-    }
-    return await this.execute("aliexpress.ds.image.searchV2", payload as any);
+    const param0 = typeof args.param0 === "object"
+      ? JSON.stringify(args.param0)
+      : args.param0;
+    return await this.execute("aliexpress.ds.image.searchV2", { ...(param0 && { param0 }) });
   }
 
   /**
@@ -328,11 +331,13 @@ export class DropshipperClient extends AESystemClient {
    * @link https://openservice.aliexpress.com/doc/api.htm#/api?cid=21038&path=aliexpress.ds.product.specialinfo.get&methodType=GET/POST
    */
   async getProductSpecialInfo(args: DS_Product_Specialinfo_Get_Params) {
-    let payload = { ...args } as any;
-    if (Array.isArray(payload.countryCodes)) {
-      payload.countryCodes = payload.countryCodes.join(",");
-    }
-    return await this.execute("aliexpress.ds.product.specialinfo.get", payload);
+    const countryCodes = Array.isArray(args.countryCodes)
+      ? args.countryCodes.join(",")
+      : args.countryCodes;
+    return await this.execute("aliexpress.ds.product.specialinfo.get", {
+      ...args,
+      countryCodes,
+    });
   }
 
   /**
@@ -358,7 +363,8 @@ export class DropshipperClient extends AESystemClient {
         "ae_item_sku_info_d_t_o",
       );
 
-      (result.ae_item_sku_info_dtos as any[]).forEach((sku) => {
+      const skus = result.ae_item_sku_info_dtos as DS_Product_Wholesale_SKU_Variation[];
+      skus.forEach((sku) => {
         if (sku.ae_sku_property_dtos) {
           sku.aeop_s_k_u_propertys = sku.ae_sku_property_dtos;
           delete sku.ae_sku_property_dtos;
@@ -397,10 +403,9 @@ export class DropshipperClient extends AESystemClient {
    * @returns API response
    */
   async searchByText(args: DS_Text_Search_Params) {
-    let payload = { ...args };
-    if (payload.searchExtend && typeof payload.searchExtend === "object") {
-      payload.searchExtend = JSON.stringify(payload.searchExtend);
-    }
-    return await this.execute("aliexpress.ds.text.search", payload as any);
+    const searchExtend = args.searchExtend && typeof args.searchExtend === "object"
+      ? JSON.stringify(args.searchExtend)
+      : args.searchExtend;
+    return await this.execute("aliexpress.ds.text.search", { ...args, ...(searchExtend !== args.searchExtend && { searchExtend }) });
   }
 }

@@ -602,13 +602,13 @@ export interface DS_Shipping_Info_Params {
 }
 
 export interface DS_Freight_Info {
-  amount: number;
-  cent: number;
+  amount: string;
+  cent: string;
   currency_code: AE_Currency;
 }
 
 export interface DS_Shipping_Details {
-  error_code: number;
+  error_code: string;
   estimated_delivery_time: string;
   freight: DS_Freight_Info;
   service_name: string;
@@ -734,7 +734,7 @@ export interface DS_Freight_Calculation_Result {
 export interface DS_Categories_Result {
   aliexpress_ds_category_get_response: {
     resp_result: {
-      resp_code: number;
+      resp_code: string;
       resp_msg: string;
       result: Affiliate_Categories;
     };
@@ -747,6 +747,9 @@ export interface DS_Categories_Result {
 
 export interface DS_Freight_Query_Params {
   queryDeliveryReq: string | object;
+}
+export interface DS_Freight_Query_Exec_Params {
+  queryDeliveryReq: string;
 }
 export interface DS_Delivery_Option {
   code: string;
