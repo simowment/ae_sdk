@@ -33,33 +33,48 @@
 
 ## Successful response
 
+PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
-```json
 {
-  "aliexpress_ds_address_get_response": {
-    "result": {
-      "ret": "true",
-      "msg": "error message",
-      "code": "code",
-      "data": {
-        "country": "US",
-        "children": "childrenStr",
-        "type": "country"
-      }
-    },
-    "code": "0",
-    "request_id": "0ba2887315178178017221014"
-  }
+
+"aliexpress\_ds\_address\_get\_response": {
+
+"result": {
+
+"ret": "true",
+
+"msg": "error message",
+
+"code": "code",
+
+"data": {
+
+"country": "US",
+
+"children": "childrenStr",
+
+"type": "country"
+
 }
-```
+
+},
+
+"code": "0",
+
+"request\_id": "0ba2887315178178017221014"
+
+}
+
+}
+
 ## Faild response
 
 # Demo code
 
 ## Java demo
 
+PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
-```java
 String url = "https://api-sg.aliexpress.com";
 
 String appkey = "your\_appkey";
@@ -78,11 +93,10 @@ IopResponse response = client.execute(request, accessToken, Protocol.TOP);
 
 System.out.println(response.getBody());
 
-```
 ## PHP demo
 
+PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
-```php
 <?php
 
 $url = "https://api-sg.aliexpress.com/sync";
@@ -105,8 +119,8 @@ $request->addApiParam('countryCode','JP');
 
 $request->addApiParam('isMultiLanguage','true');
 
-var_dump($c->execute($request, $accessToken));
-```
+var\_dump($c->execute($request, $accessToken));
+
 # ERROR CODE
 
 # Common errors

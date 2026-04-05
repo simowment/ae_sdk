@@ -284,7 +284,8 @@ export interface DS_Place_Order_Params {
    * @param {String} is_foreigner whether it is a foreigner
    * @param {String} vat_no vat tax number
    * @param {String} tax_company company name
-   * @param {String} location_tree_address_idlocation tree address id
+   * @param {String} rut_no Chile tax number
+   * @param {String} location_tree_address_id location tree address id
    *
    * product_items
    * @description Product attribute
@@ -340,11 +341,12 @@ export interface AE_Logistics_Address {
   province?: string;
   zip?: string;
   tax_number?: string;
+  rut_no?: string;
   foreigner_passport_no?: string;
   is_foreigner?: string;
   vat_no?: string;
   tax_company?: string;
-  location_tree_address_idlocation?: string;
+  location_tree_address_id?: string;
 }
 
 export type DS_Place_Order_Error_Message =

@@ -42,70 +42,118 @@
 
 ## Successful response
 
+PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
-```json
 {
-  "aliexpress_ds_order_tracking_get_response": {
-    "result": {
-      "ret": true,
-      "msg": "",
-      "code": "",
-      "data": {
-        "tracking_detail_line_list": {
-          "tracking_detail": [
-            {
-              "detail_node_list": {
-                "detail_node": [
-                  {
-                    "time_stamp": 1739928180000,
-                    "tracking_detail_desc": "Your package arrived at local Facility.",
-                    "tracking_name": "Delivery update"
-                  }
-                ]
-              },
-              "package_item_list": {
-                "package_item": [
-                  {
-                    "sku_desc": "Color:Silvery; Size:M",
-                    "quantity": 1,
-                    "item_id": 1005008453688391,
-                    "item_title": "Elegant Flounce Mini Skirts Suits Women..."
-                  }
-                ]
-              },
-              "carrier_name": "AliExpress standard shipping",
-              "mail_no": "4209795192144903600008220012159992",
-              "eta_time_stamps": 1740273780000
-            }
-          ]
-        }
-      }
-    },
-    "request_id": "21411e5617409909645296164"
-  }
+
+"aliexpress\_ds\_order\_tracking\_get\_response": {
+
+"result": {
+
+"ret": true,
+
+"msg": "",
+
+"code": "",
+
+"data": {
+
+"tracking\_detail\_line\_list": {
+
+"tracking\_detail": [
+
+{
+
+"detail\_node\_list": {
+
+"detail\_node": [
+
+{
+
+"time\_stamp": 1739928180000,
+
+"tracking\_detail\_desc": "Your package arrived at local Facility.",
+
+"tracking\_name": "Delivery update"
+
 }
-```
+
+]
+
+},
+
+"package\_item\_list": {
+
+"package\_item": [
+
+{
+
+"sku\_desc": "Color:Silvery; Size:M",
+
+"quantity": 1,
+
+"item\_id": 1005008453688391,
+
+"item\_title": "Elegant Flounce Mini Skirts Suits Women..."
+
+}
+
+]
+
+},
+
+"carrier\_name": "AliExpress standard shipping",
+
+"mail\_no": "4209795192144903600008220012159992",
+
+"eta\_time\_stamps": 1740273780000
+
+}
+
+]
+
+}
+
+}
+
+},
+
+"request\_id": "21411e5617409909645296164"
+
+}
+
+}
+
 ## Faild response
 
+PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
-```json
 {
-  "aliexpress_ds_order_tracking_get_response": {
-    "result": {
-      "ret": false,
-      "msg": "TRACKING DATA NOT FOUND",
-      "code": "1001"
-    },
-    "request_id": "2101243217409925448971244"
-  }
+
+"aliexpress\_ds\_order\_tracking\_get\_response": {
+
+"result": {
+
+"ret": false,
+
+"msg": "TRACKING DATA NOT FOUND",
+
+"code": "1001"
+
+},
+
+"request\_id": "2101243217409925448971244"
+
 }
-```
+
+}
+
 # Demo code
 
 ## Java demo
 
+PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
-```java
 String url = "https://api-sg.aliexpress.com";
 
 String appkey = "your\_appkey";
@@ -122,11 +170,10 @@ IopResponse response = client.execute(request, accessToken, Protocol.TOP);
 
 System.out.println(response.getBody());
 
-```
 ## PHP demo
 
+PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
-```php
 <?php
 
 $url = "https://api-sg.aliexpress.com/sync";
@@ -143,10 +190,10 @@ $c = new IopClient(url,appkey,appSecret);
 
 $request = new IopRequest('aliexpress.ds.order.tracking.get');
 
-$request->addApiParam('ae_order_id','12345');
+$request->addApiParam('ae\_order\_id','12345');
 
-$request->addApiParam('language','en_US');
+$request->addApiParam('language','en\_US');
 
-var_dump($c->execute($request, $accessToken));
-```
+var\_dump($c->execute($request, $accessToken));
+
 # [ChangeLog](https://openservice.aliexpress.com/doc/doc.htm?spm=a2o9m.11193535.0.0.456459b2MAmd59&nodeId=27493&docId=118729#/?docId=1669)

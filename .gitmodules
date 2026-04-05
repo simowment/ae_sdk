@@ -1,0 +1,3 @@
+[submodule "docs/aliexpress-docs"]
+	path = docs/aliexpress-docs
+	url = https://github.com/simowment/aliexpress-docs

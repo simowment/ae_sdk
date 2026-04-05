@@ -29,33 +29,48 @@
 
 ## Successful response
 
+PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
-```json
 {
-  "aliexpress_ds_member_benefit_get": {
-    "result": [
-      {
-        "canApply": "true",
-        "code": "auto-pay",
-        "title": "auto-pay",
-        "canBenefit": "true"
-      }
-    ],
-    "code": "0",
-    "rsp_code": "rsp_code",
-    "rsp_msg": "rsp_msg",
-    "request_id": "0ba2887315178178017221014"
-  }
+
+"aliexpress\_ds\_member\_benefit\_get": {
+
+"result": [
+
+{
+
+"canApply": "true",
+
+"code": "auto-pay",
+
+"title": "auto-pay",
+
+"canBenefit": "true"
+
 }
-```
+
+],
+
+"code": "0",
+
+"rsp\_code": "rsp\_code",
+
+"rsp\_msg": "rsp\_msg",
+
+"request\_id": "0ba2887315178178017221014"
+
+}
+
+}
+
 ## Faild response
 
 # Demo code
 
 ## Java demo
 
+PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
-```java
 String url = "https://api-sg.aliexpress.com";
 
 String appkey = "your\_appkey";
@@ -68,11 +83,10 @@ IopResponse response = client.execute(request, accessToken, Protocol.TOP);
 
 System.out.println(response.getBody());
 
-```
 ## PHP demo
 
+PlainBashC++C#CSSDiffHTML/XMLJavaJavascriptMarkdownPHPPythonRubySQL
 
-```php
 <?php
 
 $url = "https://api-sg.aliexpress.com/sync";
@@ -89,6 +103,6 @@ $c = new IopClient(url,appkey,appSecret);
 
 $request = new IopRequest('aliexpress.ds.member.benefit.get');
 
-var_dump($c->execute($request, $accessToken));
-```
+var\_dump($c->execute($request, $accessToken));
+
 # [ChangeLog](https://openservice.aliexpress.com/doc/doc.htm?spm=a2o9m.11193535.0.0.456459b2MAmd59&nodeId=27493&docId=118729#/?docId=1669)
