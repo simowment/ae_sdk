@@ -155,6 +155,7 @@ export interface DS_Product_Multimedia_Videos {
   media_status: string;
   media_type: string;
   poster_url: string;
+  media_url?: string;
 }
 
 export interface DS_Product_Multimedia {
@@ -312,6 +313,7 @@ export interface AE_Place_Order_Payment_Params {
   promotion?: {
     promotion_code?: string;
     promotion_channel_info: string;
+    promotion_activity_id?: string;
   };
   payment?: {
     pay_currency?: AE_Currency;
@@ -321,7 +323,10 @@ export interface AE_Place_Order_Payment_Params {
     business_model?: "retail" | "wholesale";
     /** Saudi Arabia national address (8 chars: 4 uppercase letters + 4 digits, e.g. "RAHA3443") */
     nat_addr?: string;
+    /** key is sku_id, value is customize_id */
+    customize_sku_map?: Record<string, string>;
   };
+  channel_strategy?: string;
 }
 
 export interface AE_Logistics_Address {
