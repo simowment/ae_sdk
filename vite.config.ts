@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 import { readFileSync, existsSync } from "fs";
 import { join } from "path";
 

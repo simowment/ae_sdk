@@ -45,7 +45,7 @@ import { tryFn } from ".";
 export class AEBaseClient implements AE_Base_Client {
   readonly app_key: string;
   readonly app_secret: string;
-  readonly session: string | undefined;
+  readonly session?: string;
 
   protected readonly format = RESPONSE_FORMAT;
   protected readonly migrated_apis_url = AE_TOP_API_URL;
@@ -55,7 +55,7 @@ export class AEBaseClient implements AE_Base_Client {
   constructor(init: AE_Base_Client) {
     this.app_key = init.app_key;
     this.app_secret = init.app_secret;
-    this.session = init.session;
+    if (init.session) this.session = init.session;
   }
 
   /**

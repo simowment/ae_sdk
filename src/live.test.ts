@@ -22,13 +22,13 @@ import { DropshipperClient } from "./utils/ds_client"
 import { AffiliateClient } from "./utils/affiliate_client"
 import { AESystemClient } from "./utils/system_client"
 
-const APP_KEY = process.env.ALIEXPRESS_APP_KEY ?? ""
-const APP_SECRET = process.env.ALIEXPRESS_APP_SECRET ?? ""
-const ACCESS_TOKEN = process.env.ALIEXPRESS_ACCESS_TOKEN ?? ""
-const REFRESH_TOKEN = process.env.ALIEXPRESS_REFRESH_TOKEN ?? ""
-const PRODUCT_ID = Number(process.env.TEST_AE_PRODUCT_ID ?? "1005004805799437")
-const ORDER_ID = process.env.TEST_AE_ORDER_ID ?? ""
-const PLACE_ORDER = process.env.TEST_AE_PLACE_ORDER === "true"
+const APP_KEY = process.env["ALIEXPRESS_APP_KEY"] ?? ""
+const APP_SECRET = process.env["ALIEXPRESS_APP_SECRET"] ?? ""
+const ACCESS_TOKEN = process.env["ALIEXPRESS_ACCESS_TOKEN"] ?? ""
+const REFRESH_TOKEN = process.env["ALIEXPRESS_REFRESH_TOKEN"] ?? ""
+const PRODUCT_ID = Number(process.env["TEST_AE_PRODUCT_ID"] ?? "1005004805799437")
+const ORDER_ID = process.env["TEST_AE_ORDER_ID"] ?? ""
+const PLACE_ORDER = process.env["TEST_AE_PLACE_ORDER"] === "true"
 
 const canRunDs = Boolean(APP_KEY && APP_SECRET && ACCESS_TOKEN)
 const canRunAffiliate = Boolean(APP_KEY && APP_SECRET)
@@ -68,7 +68,7 @@ describe("DropshipperClient — live API", () => {
     })
     console.log("[ds] searchByText ok:", res.ok)
     expect(res.ok).toBe(true)
-    const raw = (res.data as any)?.aliexpress_ds_text_search_response
+    const raw = ((res as any).data as any)?.aliexpress_ds_text_search_response
     const data = raw?.data
     const productsObj = data?.products
     const productList = Array.isArray(productsObj) ? productsObj : (productsObj?.selection_search_product ?? Object.values(productsObj ?? {})[0] ?? [])
@@ -86,7 +86,7 @@ describe("DropshipperClient — live API", () => {
     logResult("[ds] productDetails", res)
     console.log("[ds] productDetails ok:", res.ok)
     expect(res.ok).toBe(true)
-    const result = res.data.aliexpress_ds_product_get_response?.result
+    const result = (res as any).data.aliexpress_ds_product_get_response?.result
     expect(result?.ae_item_base_info_dto?.product_id).toBeTruthy()
     console.log("[ds] title:", result?.ae_item_base_info_dto?.subject)
     const skus = result?.ae_item_sku_info_dtos as any[]
@@ -132,7 +132,7 @@ describe("DropshipperClient — live API", () => {
     const res = await client.getCategories({})
     console.log("[ds] getCategories ok:", res.ok)
     expect(res.ok).toBe(true)
-    const result = res.data.aliexpress_ds_category_get_response?.resp_result?.result
+    const result = (res as any).data.aliexpress_ds_category_get_response?.resp_result?.result
     expect(Array.isArray(result?.categories)).toBe(true)
     expect(result?.categories.length).toBeGreaterThan(0)
     console.log("[ds] categories:", result?.categories.length)
@@ -143,7 +143,7 @@ describe("DropshipperClient — live API", () => {
     const res = await client.getMemberBenefit({})
     console.log("[ds] getMemberBenefit ok:", res.ok)
     expect(res.ok).toBe(true)
-    const result = (res.data as any)?.aliexpress_ds_member_benefit_get_response
+    const result = ((res as any).data as any)?.aliexpress_ds_member_benefit_get_response
     console.log("[ds] benefits:", result?.result?.length)
   })
 
@@ -153,7 +153,7 @@ describe("DropshipperClient — live API", () => {
     logResult("[ds] queryFeaturedPromos", res)
     console.log("[ds] queryFeaturedPromos ok:", res.ok)
     expect(res.ok).toBe(true)
-    const result = res.data.aliexpress_ds_feedname_get_response?.result
+    const result = (res as any).data.aliexpress_ds_feedname_get_response?.result
     console.log("[ds] promos:", result?.promos?.length)
   })
 
@@ -161,7 +161,7 @@ describe("DropshipperClient — live API", () => {
     if (!canRunDs) return skip("getFeedItemIds")
     // First grab a valid feed_name from queryFeaturedPromos
     const promoRes = await client.queryFeaturedPromos({})
-    const feedName = (promoRes.data.aliexpress_ds_feedname_get_response?.result?.promos as any[])?.[0]?.feed_name
+    const feedName = ((promoRes as any).data.aliexpress_ds_feedname_get_response?.result?.promos as any[])?.[0]?.feed_name
     if (!feedName) {
       console.warn("[ds] No feed_name available, skipping getFeedItemIds")
       return
@@ -169,7 +169,7 @@ describe("DropshipperClient — live API", () => {
     const res = await client.getFeedItemIds({ feed_name: feedName, page_size: 5 })
     console.log("[ds] getFeedItemIds ok:", res.ok, "| feed:", feedName)
     expect(res.ok).toBe(true)
-    const result = (res.data as any)?.aliexpress_ds_feed_itemids_get_response?.result
+    const result = ((res as any).data as any)?.aliexpress_ds_feed_itemids_get_response?.result
     console.log("[ds] item count:", result?.products?.length, "total:", result?.total)
   })
 
@@ -192,7 +192,7 @@ describe("DropshipperClient — live API", () => {
     logResult("[ds] queryFreight", res)
     console.log("[ds] queryFreight ok:", res.ok)
     expect(res.ok).toBe(true)
-    const result = (res.data as any)?.aliexpress_ds_freight_query_response?.result
+    const result = ((res as any).data as any)?.aliexpress_ds_freight_query_response?.result
     console.log("[ds] freight success:", result?.success, "| options:", result?.delivery_options?.length)
   })
 
@@ -206,7 +206,7 @@ describe("DropshipperClient — live API", () => {
     })
     console.log("[ds] shippingInfo ok:", res.ok)
     expect(res.ok).toBe(true)
-    const result = (res.data as any)?.aliexpress_logistics_buyer_freight_calculate_response?.result
+    const result = ((res as any).data as any)?.aliexpress_logistics_buyer_freight_calculate_response?.result
     console.log("[ds] shipping success:", result?.success)
   })
 
@@ -222,7 +222,7 @@ describe("DropshipperClient — live API", () => {
     const res = await client.orderDetails({ order_id: Number(ORDER_ID) })
     console.log("[ds] orderDetails ok:", res.ok)
     expect(res.ok).toBe(true)
-    const result = (res.data as any)?.aliexpress_trade_ds_order_get_response?.result
+    const result = ((res as any).data as any)?.aliexpress_trade_ds_order_get_response?.result
     console.log("[ds] order status:", result?.order_status)
   })
 
@@ -231,7 +231,7 @@ describe("DropshipperClient — live API", () => {
     const res = await client.getOrderTracking({ ae_order_id: ORDER_ID, language: "en" })
     console.log("[ds] getOrderTracking ok:", res.ok)
     expect(res.ok).toBe(true)
-    const result = (res.data as any)?.aliexpress_ds_order_tracking_get_response?.result
+    const result = ((res as any).data as any)?.aliexpress_ds_order_tracking_get_response?.result
     console.log("[ds] tracking ret:", result?.ret)
   })
 
@@ -266,7 +266,7 @@ describe("DropshipperClient — live API", () => {
     logResult("[ds] createOrder", res)
     console.log("[ds] createOrder ok:", res.ok)
     expect(res.ok).toBe(true)
-    const result = (res.data as any)?.aliexpress_ds_order_create_response?.result
+    const result = ((res as any).data as any)?.aliexpress_ds_order_create_response?.result
     console.log("[ds] order result:", JSON.stringify(result).slice(0, 500))
   })
 })
@@ -281,7 +281,7 @@ describe("AffiliateClient — live API", () => {
 
   beforeAll(() => {
     if (!canRunAffiliate) return
-    client = new AffiliateClient({ app_key: APP_KEY, app_secret: APP_SECRET, session: ACCESS_TOKEN || undefined })
+    client = new AffiliateClient({ app_key: APP_KEY, app_secret: APP_SECRET, ...(ACCESS_TOKEN ? { session: ACCESS_TOKEN } : {}) })
   })
 
   it("getCategories", async () => {
@@ -400,7 +400,7 @@ describe("AESystemClient — live API", () => {
     const res = await client.refreshToken({ refresh_token: REFRESH_TOKEN })
     console.log("[sys] refreshToken ok:", res.ok)
     expect(res.ok).toBe(true)
-    const data = (res.data as any)?.aliexpress_system_oauth_token_refresh_response
+    const data = ((res as any).data as any)?.aliexpress_system_oauth_token_refresh_response
     console.log("[sys] new token expires_in:", data?.expire_time)
   })
 })

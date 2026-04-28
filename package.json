@@ -25,6 +25,10 @@
   ],
   "author": "simowment",
   "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/simowment/ae_sdk"
